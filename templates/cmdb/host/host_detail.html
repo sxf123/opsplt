@@ -1,0 +1,75 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="col-md-7">
+        <div class="box box-widget">
+            <div class="box-header with-border">
+                <div class="box-title">
+                    <p>{{ host.hostname }}</p>
+                </div>
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body with-border">
+                <table class="table table-no-bordered" style="border-top: 0px solid transparent">
+                    <tbody>
+                        <tr>
+                            <td width="30%" style="border-top: 0px solid;">主机名</td>
+                            <td style="border-top: 0px solid;"><b>{{ host.hostname }}</b></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">IP地址</td>
+                            <td><b>{{ host.ipaddress }}</b></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">服务器类型</td>
+                            <td><b>{{ host.hosttype }}</b></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">CPU核数</td>
+                            <td><b>{{ host.cpu_nums }}</b></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">内存(G)</td>
+                            <td><b>{{ host.memory }}&nbsp;G</b></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">磁盘(G)</td>
+                            <td><b>{{ host.disk }}&nbsp;G</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="box box-success box-solid">
+                <div class="box-header">
+                    <h4 class="box-title">节点管理</h4>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table table-no-bordered">
+                        <tbody>
+                            {% for node in nodes %}
+                                <tr>
+                                    <td style="border-top: 0px;">{{ node }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

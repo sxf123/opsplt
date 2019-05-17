@@ -1,0 +1,114 @@
+{% load split_res %}
+<section class="sidebar">
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+        {% if perms.cmdb.scan_cmdb %}
+        {% with request.path|split_path as path %}
+        <li class="treeview {% ifequal path.1 'cmdb' %}menu-open{% endifequal %}">
+            <a href="">
+                <i class="fa fa-inbox"></i> <span>资产管理</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu" {% ifequal path.1 'cmdb' %}style="display: block;"{% endifequal %}>
+                {% if perms.cmdb.scan_node %}
+                <li class="active">
+                    <a href="{% url 'cluster_tree' %}">
+                        <i class="fa fa-tree"></i> <span>集群树</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if perms.cmdb.scan_host %}
+                <li class="active">
+                    <a href="{% url 'host_list' %}">
+                        <i class="fa fa-desktop"></i> <span>服务器管理</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+        {% endwith %}
+        {% endif %}
+        {% if perms.job.scan_job %}
+        {% with request.path|split_path as path %}
+        <li class="treeview {% ifequal path.1 'job' %}menu-open{% endifequal %}">
+            <a href="">
+                <i class="fa fa-file"></i> <span>作业管理</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu" {% ifequal path.1 'job' %}style="display: block;"{% endifequal %}>
+                {% if perms.job.scan_job %}
+                <li class="active">
+                    <a href="{% url 'job_list' %}">
+                        <i class="fa fa-file-archive-o"></i> <span>作业列表</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% if perms.job.scan_jobresult %}
+                <li class="active">
+                    <a href="{% url 'job_history' %}">
+                        <i class="fa fa-file-excel-o"></i> <span>执行历史</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+        {% endwith %}
+        {% endif %}
+        {% with request.path|split_path as path %}
+            <li class="treeview {% ifequal path.1 'account' %}menu-open{% endifequal %}">
+                <a href="">
+                    <i class="fa fa-user-circle-o"></i> <span>用户管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" {% ifequal path.1 'account' %}style="display: block;"{% endifequal %}>
+                    {% if perms.account.scan_user %}
+                    <li class="active">
+                        <a href="{% url 'group_list' %}">
+                            <i class="fa fa-group"></i> <span>用户组管理</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if perms.account.scan_group %}
+                    <li class="active">
+                        <a href="{% url 'user_list' %}">
+                            <i class="fa fa-user"></i> <span>用户管理</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="active">
+                        <a href="{% url 'change_password' %}">
+                            <i class="fa fa-user-secret"></i> <span>修改密码</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endwith %}
+        {% if perms.application.scan_application %}
+        {% with request.path|split_path as path %}
+            <li class="treeview {% ifequal path.1 'application' %}menu-open{% endifequal %}">
+                <a href="">
+                    <i class="fa fa-gitlab"></i> <span>应用管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                {% if perms.application.scan_service %}
+                <ul class="treeview-menu" {% ifequal path.1 'application' %}style="display: block;"{% endifequal %}>
+                    <li class="active">
+                        <a href="{% url 'service_list' %}">
+                            <i class="fa fa-cloud"></i> <span>服务管理</span>
+                        </a>
+                    </li>
+                </ul>
+                {% endif %}
+            </li>
+        {% endwith %}
+        {% endif %}
+    </ul>
+</section>

@@ -1,0 +1,183 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h4 class="box-title">执行状态</h4>
+                </div>
+                <div class="box-body with-border">
+                    <div class="progress progress-striped">
+                        <div id="prog" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                            <span class="sr-only">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h4 class="box-title">主机列表</h4>
+                </div>
+                <div class="box-body with-border">
+                    <div id="host-table" style="height: 310px;overflow: auto">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>主机IP</th>
+                                    <th>执行结果</th>
+                                    <th>执行状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for h in host %}
+                                    <tr>
+                                        <td width="30%">{{ h }}</td>
+                                        <td><button class="btn btn-primary btn-sm" type="button" id="{{ h|cut:'.' }}" disabled="disabled" onclick="job_get_result('{{ celeryid }}','{{ jobid }}','{{ h }}')">执行结果</button></td>
+                                        <td id="{{ h|cut:'.' }}_status">Pending....</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h4 class="box-title">执行结果</h4>
+                </div>
+                <div class="box-body with-border">
+                    <div id="execute_res" style="height: 310px;overflow: auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            var host_arr = {{ host|safe }};
+            $('#execute_res').html("Pending....");
+            var celeryid = '{{ celeryid }}';
+            var jobid = '{{ jobid }}';
+            var host = $('table tbody').children().eq(0).children().eq(0).text();
+            job_result(celeryid,jobid,host);
+            for(var i=0;i<host_arr.length;i++){
+                job_status(jobid,celeryid,host_arr[i]);
+            }
+            function job_status(jobid,celeryid,host){
+                var timer_id = setInterval(getStatus,2000,jobid,celeryid,host);
+                function getStatus(jobid,celeryid,host){
+                    $.ajax({
+                        url: "{% url 'job_result' %}",
+                        type: 'POST',
+                        data: {
+                            "jobid": jobid,
+                            "celeryid": celeryid,
+                            "host": host
+                        },
+                        success: function (res) {
+                            if(res.status == 'pending'){
+                                $("#" + host.replace(/\./g,'') + "_status").text('PENDING');
+                            }else if(res.status == 'success'){
+                                var state_arr = new Array();
+                                for(var i=0;i<res.result.length;i++){
+                                    state_arr.push(res.result[i].state);
+                                }
+                                var j = state_arr.indexOf('FAILURE');
+                                if(j == -1){
+                                    $("#" + host.replace(/\./g,'') + "_status").text('SUCCESS');
+                                }else{
+                                    $("#" + host.replace(/\./g,'') + "_status").text('FAILURE');
+                                }
+                                $("#" + host.replace(/\./g,'')).attr("disabled",false);
+                                clearInterval(timer_id);
+                            }else{
+                                $("#" + hsot.replace(/\./g,'') + "_status").text("FAILURE");
+                                $("#" + host.replace(/\./g,'')).attr("disabled",false);
+                                clearInterval(timer_id);
+                            }
+                        }
+                    });
+                }
+            }
+            function job_result(celeryid,jobid,host){
+                var timer_id = setInterval(getResult,2000,celeryid,jobid,host);
+                function getResult(celeryid,jobid,host) {
+                    $.ajax({
+                        url: "{% url 'job_result' %}",
+                        type: 'POST',
+                        data: {
+                            "jobid": jobid,
+                            "celeryid": celeryid,
+                            "host": host
+                        },
+                        success: function (res) {
+                            if(res.status == 'pending'){
+                                var dom = $("<div>");
+                                for(var i=0;i<res.result.length;i++){
+                                    var domli = $("<p>" + res.result[i].host + "</p>" +
+                                        "<p>" + res.result[i].task + "</p>" +
+                                        "<p>" + res.result[i].result + "</p>" +
+                                        "<p>" + res.result[i].state + "</p>");
+                                    dom.append(domli);
+                                }
+                                dom.append("Pending....");
+                                dom.append("</div>");
+                                $("#execute_res").html(dom);
+                            }else if(res.status == 'success'){
+                                var dom = $("<div>");
+                                for(var i=0;i<res.result.length;i++){
+                                    var domli = $("<p>" + res.result[i].host + "</p>" +
+                                        "<p>" + res.result[i].task + "</p>" +
+                                        "<p>" + res.result[i].result + "</p>" +
+                                        "<p>" + res.result[i].state + "</p>");
+                                    dom.append(domli);
+                                }
+                                dom.append("</div>");
+                                $("#execute_res").html(dom);
+                                clearInterval(timer_id);
+                                $("#prog").css("width","100%");
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            }
+        });
+        function job_get_result(celeryid,jobid,host){
+            console.log(celeryid);
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $.ajax({
+                url: "{% url 'job_result' %}",
+                type: 'POST',
+                data: {
+                    "jobid": jobid,
+                    "celeryid": celeryid,
+                    "host": host
+                },
+                success: function (res) {
+                    var dom = $("<div>");
+                    for(var i=0;i<res.result.length;i++){
+                        var domli = $("<p>" + res.result[i].host + "</p>" +
+                            "<p>" + res.result[i].task + "</p>" +
+                            "<p>" + res.result[i].result + "</p>" +
+                            "<p>" + res.result[i].state + "</p>");
+                        dom.append(domli);
+                        $("#execute_res").html(dom);
+                    }
+                }
+            })
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style>
+        .btn-default {
+            background-color: #FFFFFF;
+        }
+        .btn-default:hover, .btn-default:focus {
+            color: #000000;
+            background-color: #FFFFFF;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">编辑作业</h4>
+        </div>
+        <form class="form-horizontal" role="form" id="job_update_form">
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="job_desc">脚本描述</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="job_desc" id="job_desc" value="{{ job.job_desc }}" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="job_name">脚本名称</label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="job_name" id="job_name" value="{{ job.job_name }}" disabled="disabled"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="job_type">脚本类型</label>
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" id="python">python</button>
+                            <button type="button" class="btn btn-default" id="shell">shell</button>
+                            <button type="button" class="btn btn-default" id="playbook">playbook</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="job_content">脚本内容</label>
+                    <div class="col-md-6">
+                        <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ job.job_content|safe }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary" id="job_submit">提交</button>
+                        <a type="button" class="btn btn-default" href="{% url 'job_list' %}">取消</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            var job_type = '{{ job.job_type }}';
+            var type = null;
+            if(job_type == 'playbook'){
+                type = 'yaml';
+            }else if(job_type == 'python'){
+                type = 'python';
+            }else if(job_type == 'sh'){
+                type = 'sh';
+            }
+            ace.require("ace/tools/language_tools");
+            var editor=ace.edit('code');
+            editor.moveCursorTo(0,0);
+            editor.setTheme('ace/theme/clouds');
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap','free');
+            editor.getSession().setMode('ace/mode/' + type);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            $('#' + job_type).attr('autofocus',true);
+            $('#' + job_type).css({'color':'#FFFFFF','background-color':'#00a7d0'});
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $('#job_submit').on('click',function () {
+                var job_content = editor.getValue();
+                console.log(job_content);
+                $.ajax({
+                    url: '/job/update/' + '{{ job.id }}' + '/',
+                    type: 'POST',
+                    data: {
+                        'job_content': job_content
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        window.location.replace("{% url 'job_list' %}");
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

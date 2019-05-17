@@ -1,0 +1,125 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style type="text/css">
+        #service_add_form label.error {
+            color: Red;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">添加服务</h4>
+        </div>
+        <form class="form-horizontal" role="form" action="" method="post" id="service_add_form">
+            <div class="box-body with-border">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">服务名称</label>
+                    <div class="col-sm-8">
+                        {{ service_add_form.name }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="desc">服务描述</label>
+                    <div class="col-sm-8">
+                        {{ service_add_form.desc }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="port">服务端口</label>
+                    <div class="col-sm-8">
+                        {{ service_add_form.port }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="log_dir">日志路径</label>
+                    <div class="col-sm-8">
+                        {{ service_add_form.log_dir }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="product">所属产品</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="product" id="product">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <a type="button" class="btn btn-default" href="{% url 'service_list' %}">取消</a>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            $('#product').select2({
+                placeholder: '请选择服务所属产品',
+                allowClear: true,
+                data: [{'id':'yudao1.0','text':'小程序平台'},{'id':'yudao2.0','text':'社区电商'}]
+            });
+            $('#product').change(function () {
+                $(this).valid();
+            });
+            $("#service_add_form").validate({
+                ignore: "",
+                rules: {
+                    name: {
+                        required: true,
+                        remote: {
+                            url: '/application/service/exists/',
+                            type: 'post',
+                            data: {
+                                name: function () { return $('#name').val(); }
+                            }
+                        }
+                    },
+                    port: {
+                        required: true
+                    },
+                    log_dir: {
+                        required: true
+                    },
+                    product: {
+                        required: true
+                    }
+                },
+                messages: {
+                    name: {
+                        required: '请输入服务名称',
+                        remote: '服务已存在'
+                    },
+                    port: {
+                        required: '请输入服务端口'
+                    },
+                    log_dir: {
+                        required: '请输入日志路径'
+                    },
+                    product: {
+                        required: '请选择服务所属产品'
+                    }
+                },
+                errorPlacement: function (error,element) {
+                    if(element.is('select')){
+                        error.appendTo(element.parent());
+                    }else{
+                        error.insertAfter(element);
+                    }
+                },
+                success: function (element) {
+                    element.remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}

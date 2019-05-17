@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>系统管理 | 登录</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{% static 'plugin/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugin/css/AdminLTE.min.css' %}">
+    <script src="{% static 'plugin/js/html5shiv.min.js' %}"></script>
+    <script src="{% static 'plugin/js/respond.min.js' %}"></script>
+    <script src="{% static 'plugin/js/jquery.min.js' %}"></script>
+    <script src="{% static 'plugin/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugin/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'plugin/js/messages_zh.min.js' %}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style type="text/css">
+        #login_form label.error {
+            color: white;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page" style="background-color: #2d3a4b;overflow: hidden;">
+    <div class="login-box">
+        <div class="login-logo">
+            <b style="color: #fff">系统管理</b>
+        </div>
+        <div class="login-box-body" style="background-color: #2d3a4b;">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form action="" method="post" id="login_form" role="form">
+                {% csrf_token %}
+                <div class="form-group has-feedback">
+                    {{ login_form.username }}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback" style="line-height: 50px;" id="username-span"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    {{ login_form.password }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback" style="line-height: 50px;"></span>
+                </div>
+                <div class="col-xs-12 no-padding">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat" style="height: 40px;border-radius: 5px;">登 录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+           $('#login_form').validate({
+               ignore: "",
+               rules: {
+                   username: {
+                       required: true,
+                       remote: {
+                           url: '/common/user/exists/',
+                           type: 'POST',
+                           data: {
+                               username: function () {return $('#username').val();}
+                           }
+                       }
+                   },
+                   password: {
+                       required: true,
+                       remote: {
+                           url: '/common/check/password/',
+                           type: 'POST',
+                           data: {
+                               username: function () {return $('#username').val();},
+                               password: function () {return $('#password').val();}
+                           }
+                       }
+                   }
+               },
+               messages: {
+                   username: {
+                       required: '* 请输入用户名',
+                       remote: '* 用户不存在'
+                   },
+                   password: {
+                       required: '* 请输入密码',
+                       remote: '* 密码错误'
+                   }
+               },
+               errorPlacement: function (error,element) {
+                   error.insertAfter(element.next('span'));
+               },
+               success: function (element) {
+                   element.remove();
+               }
+           });
+        });
+    </script>
+</body>
+</html>

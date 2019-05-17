@@ -1,0 +1,152 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style type="text/css">
+        #host_update_form label.error {
+            color: Red;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">修改主机</h4>
+        </div>
+        <form class="form-horizontal" role="form" action="" method="post" id="host_update_form">
+            {% csrf_token %}
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="hostname">主机名</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.hostname }}
+                        {{ host_update_form.hostname_hidden }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="ipaddress">IP地址</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.ipaddress }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="hosttype">主机类型</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.hosttype }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="cpu_nums">CPU核数</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.cpu_nums }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="memory">内存(G)</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.memory }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="disk">磁盘(G)</label>
+                    <div class="col-sm-8">
+                        {{ host_update_form.disk }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="node">节点</label>
+                    <div class="col-sm-8">
+                        <select multiple class="form-control" id="node" name="node"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2" style="margin-top: 0px;">
+                        <a type="button" class="btn btn-default" href="{% url 'host_list' %}">取消</a>
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#node').select2({
+               placeholder: '请选择节点',
+               allowClear: true,
+               data: {{ node_list|safe }}
+            });
+            $('#node').val({{ node_id_list|safe }}).trigger('change');
+            $('#node').change(function () {
+                $(this).valid();
+            });
+            $('#host_update_form').validate({
+                ignore: "",
+                rules: {
+                    hostname: {
+                        required: true
+                    },
+                    ipaddress: {
+                        required: true
+                    },
+                    hosttype: {
+                        required: true
+                    },
+                    cpu_nums: {
+                        required: true,
+                        digits: true
+                    },
+                    memory: {
+                        required: true,
+                        digits: true
+                    },
+                    disk: {
+                        required: true,
+                        digits: true
+                    },
+                    node: {
+                        required: true
+                    }
+                },
+                messages: {
+                    hostname: {
+                        required: '请输入主机名'
+                    },
+                    ipaddress: {
+                        required: '请输入IP地址'
+                    },
+                    hosttype: {
+                        required: '请选择主机类型'
+                    },
+                    cpu_numps: {
+                        required: '请输入CPU核数',
+                        digits: '必须为整数'
+                    },
+                    memory: {
+                        required: '请输入内存',
+                        digits: '必须为整数'
+                    },
+                    disk: {
+                        required: '请输入磁盘',
+                        digits: '必须为整数'
+                    },
+                    node: {
+                        required: '请选择节点'
+                    }
+                },
+                errorPlacement: function (error,element) {
+                    if(element.is('select')) {
+                        error.appendTo(element.parent());
+                    }else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function (element) {
+                    $(element).remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}

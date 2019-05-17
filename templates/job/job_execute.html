@@ -1,0 +1,119 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style>
+        #job_execute_form label.error {
+            color: Red;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">脚本执行</h4>
+        </div>
+        <form class="form-horizontal" role="form" id="job_execute_form">
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="host">主机</label>
+                    <div class="col-sm-6">
+                        <select id="host" name="host" class="form-control" multiple="multiple"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="playbook">脚本</label>
+                    <div class="col-sm-6">
+                        <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ job.job_content }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button type="button" class="btn btn-primary" id="job_execute" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading....">提交</button>
+                        <a href="{% url 'job_list' %}" type="button" class="btn btn-default">关闭</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            $('#host').select2({
+                placeholder: '请选择主机',
+                allowClear: true,
+                data: {{ host|safe }},
+                closeOnSelect: true
+            });
+            $('#host').change(function () {
+                $(this).valid();
+            });
+            function valJobExecuteForm(){
+                return $('#job_execute_form').validate({
+                    ignore: "",
+                    rules: {
+                        host: {
+                            required: true
+                        },
+                    },
+                    messages: {
+                        host: {
+                            required: '请选择主机'
+                        },
+                    },
+                    errorPlacement: function (error,element) {
+                        if(element.is('select')){
+                            error.appendTo(element.parent());
+                        }else{
+                            error.insertAfter(element);
+                        }
+                    },
+                    success: function (element) {
+                        $(element).remove();
+                    }
+                }).form();
+            }
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit('code');
+            editor.setTheme('ace/theme/clouds');
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap','free');
+            editor.getSession().setMode('ace/mode/yaml');
+            editor.moveCursorTo(0,0);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.setReadOnly(true);
+            $('#job_execute').on('click',function () {
+                $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                });
+                var host = $('#host').select2('val').join(',');
+                var playbook = editor.getValue();
+                var job_name = '{{ job.job_name }}';
+                if(valJobExecuteForm()){
+                    $.ajax({
+                        url: "{% url 'ansible_playbook' %}",
+                        type: "POST",
+                        data: {
+                            'host': host,
+                            'playbook': playbook,
+                            'job_name': job_name
+                        },
+                        success: function (res) {
+                            var celeryid = res.celery_id;
+                            var jobid = res.job_id;
+                            var host = res.host;
+                            $.redirect("{% url 'job_exec_result' %}",{'celeryid':celeryid,'jobid':jobid,'host':host,'csrfmiddlewaretoken':'{{ csrf_token }}'});
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
