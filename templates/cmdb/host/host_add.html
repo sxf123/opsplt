@@ -28,6 +28,13 @@
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="password">服务器密码</label>
+                    <div class="col-sm-8">
+                        {{ host_add_form.password }}
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="hosttype">主机类型</label>
                     <div class="col-sm-8">
                         {{ host_add_form.hosttype }}
@@ -84,62 +91,68 @@
                 ignore: "",
                 rules: {
                     hostname: {
-                       required: true,
-                       remote: {
+                        required: true,
+                        remote: {
                            url: '/cmdb/host/exists/',
                            type: 'POST',
                            data: {
                                hostname: function () {return $('#hostname').val();}
                            }
-                       }
+                        }
                     },
                     ipaddress: {
-                       required: true
+                        required: true
+                    },
+                    password: {
+                        required: true
                     },
                     hosttype: {
-                       required: true
+                        required: true
                     },
                     cpu_nums: {
-                       required: true,
-                       digits: true
+                        required: true,
+                        digits: true
                     },
                     memory: {
-                       required: true,
-                       digits: true
+                        required: true,
+                        digits: true
                     },
                     disk: {
-                       required: true,
-                       digits: true
+                        required: true,
+                        digits: true
                     },
                     node: {
-                       required: true
+                        required: true
                     }
                 },
                 messages: {
                     hostname: {
-                       required: "请输入主机名",
-                       remote: "主机名已经存在"
+                        required: "请输入主机名",
+                        remote: "主机名已经存在"
                     },
                     ipaddress: {
-                       required: "请输入IP地址"
+                        required: "请输入IP地址"
+                    },
+                    password: {
+                        required: "请输入服务器密码"
                     },
                     hosttype: {
-                       required: "请选择主机类型"
+                        required: "请选择主机类型"
                     },
                     cpu_nums: {
-                       required: "请输入CPU核数",
-                       digits: "必须为整数"
+                        required: "请输入CPU核数",
+                        digits: "必须为整数"
                     },
                     memory: {
-                       required: "请输入内存大小",
-                       digits: "必须为整数"
+                        required: "请输入内存大小",
+                        digits: "必须为整数"
                     },
                     disk: {
-                       required: "请输入磁盘大小",
-                       digits: "必须为整数"
+                        required: "请输入磁盘大小",
+                        digits: "必须为整数"
                     },
                     node: {
-                       required: "请选择服务"
+                        required: "请选择服务"
                     }
                 },
                 errorPlacement: function (error,element) {

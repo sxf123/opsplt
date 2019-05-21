@@ -103,7 +103,7 @@ class AdHoc:
 	def __init__(self,host_list,jobid,options=None):
 		self.host_list = host_list
 		self.loader = DataLoader()
-		self.options = options or Options(connection='smart',forks=5)
+		self.options = options or Options(connection='smart',forks=5,remote_user='root',ssh_common_args='-C -o ControlPersist=30s')
 		self.passwords = dict()
 		self.sources = ','.join(self.host_list)
 		if len(self.host_list) == 1:

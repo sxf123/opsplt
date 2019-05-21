@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from cmdb.views.HostView import HostView,HostAdd,host_exist,HostUpdate,delete_host,host_detail,host_status
+from cmdb.views.HostView import HostView,HostAdd,host_exist,HostUpdate,delete_host,host_detail,host_status,generate_publickey
 from cmdb.views.TreeView import tree,update_node,add_node,delete_node,delete_multiple_node,get_host_list
 
 urlpatterns = [
@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^delete/node/$',delete_node,name='delete_ztree'),
     url(r'^delete/multiple/node/$',delete_multiple_node,name='delete_multiple_node'),
     url(r'^host/node/list/$',get_host_list,name='get_node_host_list'),
-    url(r'^host/status/$',host_status,name='host_status')
+    url(r'^host/status/$',host_status,name='host_status'),
+    url(r'^host/generate/publickey/$',generate_publickey,name='generate_publickey')
 ]

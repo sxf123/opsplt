@@ -12,6 +12,10 @@
             color: #d58512;
         }
     </style>
+    <div class="row">
+        <div class="col-md-12" id="warning_message">
+        </div>
+    </div>
     <div class="box box-default">
         <div class="box-header with-border">
             <div class="col-xs-1" style="padding-left: 0;">
@@ -72,8 +76,8 @@
                                     <button type="button" class="btn btn-primary btn-sm">更新</button>
                                 </a>
                                 {% endif %}
-                                <a href="">
-                                    <button type="button" class="btn btn-info btn-sm">连接</button>
+                                <a>
+                                    <button type="button" class="btn btn-info btn-sm" data-loading-text="Loading..." onclick="genPubKey('{{ h.hostname }}')" id="{{ h.hostname }}_publickey">拷贝公钥</button>
                                 </a>
                                 {% if perms.cmdb.delete_host %}
                                 <a href="">
@@ -189,7 +193,6 @@
                         'hostname': host_list[i]
                     },
                     success: function (res) {
-                        console.log(res);
                         if(res.state == 'up'){
                             $('#' + res.host).attr('class','fa fa-circle up');
                         }else if(res.state == 'down'){
@@ -203,6 +206,43 @@
             }
             setInterval(getHostStatus,30000,host_list);
         });
+        function genPubKey(hostname){
+            var $btn = $('#' + hostname + '_publickey').button('loading')
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $.ajax({
+                url: "{% url 'generate_publickey' %}",
+                type: 'POST',
+                data: {
+                    'hostname': hostname
+                },
+                success: function (res) {
+                    console.log(res);
+                    var success_alert = $('<div class="alert alert-success">' +
+                        '   <a href="" class="close" data-dismiss="alert">' +
+                        '       &times;' +
+                        '   </a>' +
+                        '   <strong>信息：</strong>复制公钥成功' +
+                        '</div>');
+                    var error_alert = $('<div class="alert alert-error">' +
+                        '   <a href="" class="close" data-dismiss="alert">' +
+                        '       &times;' +
+                        '   </a>' +
+                        '   <strong>信息：</strong>复制公钥失败' +
+                        '</div>');
+                    if(res.state == 'SUCCESS'){
+                        $('#warning_message').html(success_alert);
+                    }else{
+                        $('#warning_message').html(error_alert);
+                    }
+                    $btn.button('reset');
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
         function getHostStatus(host_list){
             $.ajaxSetup({
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}'}

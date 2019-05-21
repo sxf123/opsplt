@@ -14,6 +14,10 @@ from django.utils.decorators import method_decorator
 from common.ansible_api import AdHoc
 from opsplt.settings import JOBID_CHOICE
 import random
+from common.ansible_pass import autocreate_publickey
+from opsplt.settings import AES_ENCRYPT_KEY
+from common.crypt import encrypt,decrypt
+from job.models import JobResult
 
 class HostView(View):
     def __init__(self):
@@ -42,6 +46,7 @@ class HostAdd(View):
         if host_add_form.is_valid():
             hostname = host_add_form.cleaned_data.get('hostname')
             ipaddress = host_add_form.cleaned_data.get('ipaddress')
+            password = host_add_form.cleaned_data.get('password')
             hosttype = host_add_form.cleaned_data.get('hosttype')
             cpu_nums = host_add_form.cleaned_data.get('cpu_nums')
             memory = host_add_form.cleaned_data.get('memory')
@@ -50,6 +55,7 @@ class HostAdd(View):
             host = Host(
                 hostname = hostname,
                 ipaddress = ipaddress,
+                password = encrypt(AES_ENCRYPT_KEY,password),
                 hosttype = hosttype,
                 cpu_nums = cpu_nums,
                 memory = memory,
@@ -85,6 +91,7 @@ class HostUpdate(View):
             host = Host.objects.get(pk=id)
             host.hostname = host_update_form.cleaned_data.get('hostname_hidden')
             host.ipaddress = host_update_form.cleaned_data.get('ipaddress')
+            host.password = encrypt(AES_ENCRYPT_KEY,host_update_form.cleaned_data.get('password'))
             host.hosttype = host_update_form.cleaned_data.get('hosttype')
             host.cpu_nums = host_update_form.cleaned_data.get('cpu_nums')
             host.memory = host_update_form.cleaned_data.get('memory')
@@ -156,3 +163,14 @@ def host_status(request):
     host = Host.objects.get(hostname=hostname)
     state = host.state
     return JsonResponse({'host':hostname,'state':state})
+
+@require_http_methods(['POST'])
+@login_required
+def generate_publickey(request):
+    hostname = request.POST.get('hostname')
+    host = Host.objects.get(hostname=hostname)
+    jobid = ''.join(random.sample(JOBID_CHOICE,20))
+    password = decrypt(AES_ENCRYPT_KEY,host.password)
+    res = autocreate_publickey([host.ipaddress],password,jobid)
+    jobstate = JobResult.objects.get(jobid=jobid).state
+    return JsonResponse({'result':res._result,'state':jobstate})

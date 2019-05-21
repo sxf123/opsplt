@@ -8,6 +8,7 @@ class Host(models.Model):
     cpu_nums = models.IntegerField(blank=False,null=True,verbose_name="CPU核数")
     memory = models.IntegerField(blank=False,null=True,verbose_name="内存")
     disk = models.IntegerField(blank=False,null=True,verbose_name="磁盘")
+    password = models.CharField(max_length=255,blank=False,null=True,verbose_name="密码")
     node = models.ManyToManyField(Node,db_constraint=False,null=True)
     state = models.CharField(max_length=255,null=True,blank=True,verbose_name="主机状态")
 

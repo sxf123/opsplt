@@ -1,4 +1,4 @@
-from django.forms import TextInput,Select,HiddenInput
+from django.forms import TextInput,Select,HiddenInput,PasswordInput
 from django import forms
 
 class HostAddForm(forms.Form):
@@ -7,6 +7,9 @@ class HostAddForm(forms.Form):
     )
     ipaddress = forms.GenericIPAddressField(
         widget=TextInput(attrs={'id':'ipaddress','class':'form-control','placeholder':'请输入IP地址'})
+    )
+    password = forms.CharField(
+        widget = PasswordInput(attrs={'id':'password','class':'form-control','placeholder':'请输入密码'})
     )
     hosttype = forms.CharField(
         widget=Select(attrs={'id':'hsottype','class':'form-control'},choices=(('','----------'),('virtual','虚拟机'),('hyper','物理机')))

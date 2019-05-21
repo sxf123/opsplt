@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import djcelery
+import string
+import random
 
 djcelery.setup_loader()
 BROKER_URL = 'amqp://myuser:mypassword@127.0.0.1:5672/vhost'
@@ -157,3 +159,9 @@ STATICFILES_FINDERS = (
 )
 
 JOBID_CHOICE = "abcdefghijklmnopqrstuvwxyz1234567890"
+
+SESSION_COOKIE_AGE = 60 * 30
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+
+AES_ENCRYPT_KEY = "EdKCoeSJz2y6NWT3"
