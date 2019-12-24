@@ -16,8 +16,8 @@ import string
 import random
 
 djcelery.setup_loader()
-BROKER_URL = 'amqp://myuser:mypassword@127.0.0.1:5672/vhost'
-CELERY_RESULT_BACKEND = 'redis://10.0.0.139:6379/1'
+BROKER_URL = 'amqp://opsplt:opsplt@172.16.141.210:5672/opsplt'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
@@ -34,7 +34,7 @@ SECRET_KEY = 'm-pga%wvv$*zgwp+$xhq@i$$n^4eqa1uwai8ogr3#5h262^8x-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['47.110.75.118','192.168.0.103','192.168.0.69','192.168.0.113','10.0.0.139']
+ALLOWED_HOSTS = ['opsplt.hzyudaokeji.com']
 
 
 # Application definition
@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'opsplt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'devops',
-        'USER': 'devops',
-        'PASSWORD': 'devops',
+        'NAME': 'opsplt',
+        'USER': 'opsplt',
+        'PASSWORD': 'opsplt@123',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -165,3 +165,39 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 
 AES_ENCRYPT_KEY = "EdKCoeSJz2yDNCA7"
+
+LOGGING = {
+    "version" : 1,
+    "disable_existing_loggers" : False,
+    "formatters" : {
+        "standard" : {
+            "format" : "%(asctime)s %(levelname)s [ %(message)s] %(pathname)s %(filename)s %(module)s %(funcName)s %(lineno)d"
+        },
+    },
+    "handlers" : {
+        "console" : {
+            "level" : "INFO",
+            "class" : "logging.StreamHandler",
+            "formatter" : "standard"
+        },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "handler.log"),
+            "formatter": "standard"
+        }
+    },
+    "loggers" : {
+        "default" : {
+            "handlers" : ["file"],
+            "level" : "DEBUG",
+            "propagate" : True
+        },
+        "django_auth_ldap":{
+            "handlers":["console"],
+            "level":"DEBUG",
+            "propatage":True,
+        }
+    }
+}
+

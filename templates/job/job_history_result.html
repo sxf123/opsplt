@@ -1,21 +1,21 @@
 {% extends 'common/base.html' %}
 {% block main_body %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-default">
-                <div class="box-header with-border">
-                    <h4 class="box-title">执行状态</h4>
-                </div>
-                <div class="box-body with-border">
-                    <div class="progress progress-striped">
-                        <div id="prog" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                            <span class="sr-only">100%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div class="row">#}
+{#        <div class="col-md-12">#}
+{#            <div class="box box-default">#}
+{#                <div class="box-header with-border">#}
+{#                    <h4 class="box-title">执行状态</h4>#}
+{#                </div>#}
+{#                <div class="box-body with-border">#}
+{#                    <div class="progress progress-striped">#}
+{#                        <div id="prog" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 100%">#}
+{#                            <span class="sr-only">100%</span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
     <div class="row">
         <div class="col-md-4">
             <div class="box box-default">
@@ -74,10 +74,9 @@
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
             });
             $.ajax({
-                url: "{% url 'job_history_host_result' %}",
+                url: "{% url 'job_history_result' jobid %}",
                 type: "POST",
                 data: {
-                    'jobid': jobid,
                     'host': host
                 },
                 success: function (res) {

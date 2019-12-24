@@ -91,6 +91,7 @@
                     data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
                 });
                 var host = $('#host').select2('val').join(',');
+                console.log(host);
                 var playbook = editor.getValue();
                 var job_name = '{{ job.job_name }}';
                 if(valJobExecuteForm()){
@@ -103,10 +104,9 @@
                             'job_name': job_name
                         },
                         success: function (res) {
-                            var celeryid = res.celery_id;
                             var jobid = res.job_id;
                             var host = res.host;
-                            $.redirect("{% url 'job_exec_result' %}",{'celeryid':celeryid,'jobid':jobid,'host':host,'csrfmiddlewaretoken':'{{ csrf_token }}'});
+                            window.location.replace(`{% url 'job_result' %}?jobid=${jobid}&host=${host}`)
                         },
                         error: function (err) {
                             console.log(err);

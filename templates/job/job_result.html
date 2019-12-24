@@ -36,7 +36,7 @@
                                 {% for h in host %}
                                     <tr>
                                         <td width="30%">{{ h }}</td>
-                                        <td><button class="btn btn-primary btn-sm" type="button" id="{{ h|cut:'.' }}" disabled="disabled" onclick="job_get_result('{{ celeryid }}','{{ jobid }}','{{ h }}')">执行结果</button></td>
+                                        <td><button class="btn btn-primary btn-sm" type="button" id="{{ h|cut:'.' }}" disabled="disabled" onclick="job_get_result('{{ jobid }}','{{ h }}')">执行结果</button></td>
                                         <td id="{{ h|cut:'.' }}_status">Pending....</td>
                                     </tr>
                                 {% endfor %}
@@ -64,22 +64,20 @@
             });
             var host_arr = {{ host|safe }};
             $('#execute_res').html("Pending....");
-            var celeryid = '{{ celeryid }}';
             var jobid = '{{ jobid }}';
             var host = $('table tbody').children().eq(0).children().eq(0).text();
-            job_result(celeryid,jobid,host);
+            job_result(jobid,host);
             for(var i=0;i<host_arr.length;i++){
-                job_status(jobid,celeryid,host_arr[i]);
+                job_status(jobid,host_arr[i]);
             }
-            function job_status(jobid,celeryid,host){
-                var timer_id = setInterval(getStatus,2000,jobid,celeryid,host);
-                function getStatus(jobid,celeryid,host){
+            function job_status(jobid,host){
+                var timer_id = setInterval(getStatus,2000,jobid,host);
+                function getStatus(jobid,host){
                     $.ajax({
                         url: "{% url 'job_result' %}",
                         type: 'POST',
                         data: {
                             "jobid": jobid,
-                            "celeryid": celeryid,
                             "host": host
                         },
                         success: function (res) {
@@ -107,15 +105,14 @@
                     });
                 }
             }
-            function job_result(celeryid,jobid,host){
-                var timer_id = setInterval(getResult,2000,celeryid,jobid,host);
-                function getResult(celeryid,jobid,host) {
+            function job_result(jobid,host){
+                var timer_id = setInterval(getResult,2000,jobid,host);
+                function getResult(jobid,host) {
                     $.ajax({
                         url: "{% url 'job_result' %}",
                         type: 'POST',
                         data: {
                             "jobid": jobid,
-                            "celeryid": celeryid,
                             "host": host
                         },
                         success: function (res) {
@@ -153,8 +150,7 @@
                 }
             }
         });
-        function job_get_result(celeryid,jobid,host){
-            console.log(celeryid);
+        function job_get_result(jobid,host){
             $.ajaxSetup({
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
             });
@@ -163,7 +159,6 @@
                 type: 'POST',
                 data: {
                     "jobid": jobid,
-                    "celeryid": celeryid,
                     "host": host
                 },
                 success: function (res) {
