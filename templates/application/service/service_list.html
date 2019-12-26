@@ -40,9 +40,9 @@
                         <th>服务描述</th>
                         <th>服务端口</th>
                         <th>所属产品</th>
-                        <th>状态</th>
-                        <th>UP数量</th>
-                        <th>DOWN数量</th>
+<!--                        <th>状态</th>-->
+<!--                        <th>UP数量</th>-->
+<!--                        <th>DOWN数量</th>-->
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -57,11 +57,11 @@
                             <td>{{ service.desc }}</td>
                             <td>{{ service.port }}</td>
                             <td>{{ service.product }}</td>
-                            <td>
-                                <i class="fa fa-circle up" id="{{ service.name }}"></i>
-                            </td>
-                            <td id="{{ service.name }}_up">2</td>
-                            <td id="{{ service.name }}_down">0</td>
+<!--                            <td>-->
+<!--                                <i class="fa fa-circle up" id="{{ service.name }}"></i>-->
+<!--                            </td>-->
+<!--                            <td id="{{ service.name }}_up">2</td>-->
+<!--                            <td id="{{ service.name }}_down">0</td>-->
                             <td>
                                 {% if perms.application.change_service %}
                                 <a href="{% url 'service_update' service.id %}">
@@ -213,41 +213,41 @@
                     }
                 });
             }
-            function check_service(service_list){
-                for(var i=0;i<service_list.length;i++){
-                    $.ajax({
-                        url: '/application/service/state/',
-                        type: 'post',
-                        data: {
-                            name: service_list[i].name
-                        },
-                        success: function (res) {
-                            var up_arr = new Array();
-                            var down_arr = new Array();
-                            for(var i=0;i<res.length;i++){
-                                if(res[i].state == 'UP'){
-                                    up_arr.push(res[i].host);
-                                }else if(res[i].state == 'DOWN'){
-                                    down_arr.push(res[i].host);
-                                }
-                            }
-                            $('#' + res[0].name + '_up').text(up_arr.length);
-                            $('#' + res[0].name + '_down').text(down_arr.length);
-                            if(down_arr.length > 0 && down_arr.length < res.length){
-                                $('#' + res[0].name).attr('class','fa fa-circle warning');
-                            }else if(down_arr.length == res.length){
-                                $('#' + res[0].name).attr('class','fa fa-circle down');
-                            }else {
-                                $('#' + res[0].name).attr('class','fa fa-circle up');
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-                }
-            }
-            setInterval(check_service,30000,service_dict);
+            // function check_service(service_list){
+            //     for(var i=0;i<service_list.length;i++){
+            //         $.ajax({
+            //             url: '/application/service/state/',
+            //             type: 'post',
+            //             data: {
+            //                 name: service_list[i].name
+            //             },
+            //             success: function (res) {
+            //                 var up_arr = new Array();
+            //                 var down_arr = new Array();
+            //                 for(var i=0;i<res.length;i++){
+            //                     if(res[i].state == 'UP'){
+            //                         up_arr.push(res[i].host);
+            //                     }else if(res[i].state == 'DOWN'){
+            //                         down_arr.push(res[i].host);
+            //                     }
+            //                 }
+            //                 $('#' + res[0].name + '_up').text(up_arr.length);
+            //                 $('#' + res[0].name + '_down').text(down_arr.length);
+            //                 if(down_arr.length > 0 && down_arr.length < res.length){
+            //                     $('#' + res[0].name).attr('class','fa fa-circle warning');
+            //                 }else if(down_arr.length == res.length){
+            //                     $('#' + res[0].name).attr('class','fa fa-circle down');
+            //                 }else {
+            //                     $('#' + res[0].name).attr('class','fa fa-circle up');
+            //                 }
+            //             },
+            //             error: function (err) {
+            //                 console.log(err);
+            //             }
+            //         });
+            //     }
+            // }
+            // setInterval(check_service,30000,service_dict);
             $('#search').on('click',function () {
                 var searvice_name = $("input[name='search']").val();
                 $.ajaxSetup({

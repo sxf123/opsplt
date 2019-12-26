@@ -46,7 +46,7 @@
                         <th>CPU核数</th>
                         <th>内存</th>
                         <th>磁盘</th>
-                        <th>状态</th>
+<!--                        <th>状态</th>-->
                         <th>
                             <div>操作</div>
                         </th>
@@ -67,9 +67,9 @@
                             <td>{{ h.cpu_nums }}</td>
                             <td>{{ h.memory }}</td>
                             <td>{{ h.disk }}</td>
-                            <td>
-                                <i class="fa fa-circle up" id="{{ h.hostname }}"></i>
-                            </td>
+<!--                            <td>-->
+<!--                                <i class="fa fa-circle up" id="{{ h.hostname }}"></i>-->
+<!--                            </td>-->
                             <td>
                                 {% if perms.cmdb.change_host %}
                                 <a href="{% url 'host_update' h.id %}">
