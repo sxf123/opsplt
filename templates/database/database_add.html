@@ -1,0 +1,118 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style type="text/css">
+        #database_add_form label.error {
+            color: Red;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">添加主机</h4>
+        </div>
+        <form class="form-horizontal" role="form" action="" method="post" id="database_add_form">
+            {% csrf_token %}
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="schema_name">schema名称</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="schema_name" placeholder="请输入schema名称"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="schema_url">schema url</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="schema_url" placeholder="请输入schema url"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="schema_username">schema用户名</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="schema_username" placeholder="请输入schema用户名"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="schema_password">schema密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="schema_password" placeholder="请输入schema密码"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="schema_env">schema所属环境</label>
+                    <div class="col-sm-8">
+                        <select name="schema_env" class="form-control">
+                            <option value="" selected="selected">----------</option>
+                            {% for env,env_name in env_dict.items %}
+                                <option value="{{ env }}">{{ env_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2" style="margin-top: 0;">
+                        <a type="button" class="btn btn-default" href="{% url 'database_list' %}">取消</a>
+                        <button type="submit" class="btn btn-success">提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            $('#database_add_form').validate({
+                ignore: "",
+                rules: {
+                    schema_name: {
+                        required: true
+                    },
+                    schema_url: {
+                        required: true
+                    },
+                    schema_username: {
+                        required: true
+                    },
+                    schema_password: {
+                        required: true
+                    },
+                    schema_env: {
+                        required: true
+                    }
+                },
+                messages: {
+                    schema_name: {
+                        required: "请输入schema名称"
+                    },
+                    schema_url: {
+                        required: "请输入schema url"
+                    },
+                    schema_username: {
+                        required: "请输入schema用户名"
+                    },
+                    schema_password: {
+                        required: "请输入schema密码"
+                    },
+                    schema_env: {
+                        required: "请选择所属环境"
+                    }
+                },
+                errorPlacement: function (error,element) {
+                    if(element.is("select")){
+                       error.appendTo(element.parent());
+                    }else {
+                       error.insertAfter(element);
+                    }
+                },
+                success: function (element) {
+                    $(element).remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}

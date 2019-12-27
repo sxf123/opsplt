@@ -110,5 +110,22 @@
             </li>
         {% endwith %}
         {% endif %}
+        {% with request.path|split_path as path %}
+            <li class="treeview {% ifequal path.1 'database' %}menu-open{% endifequal %}">
+                <a href="">
+                    <i class="fa fa-dashboard"></i> <span>数据库管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" {% ifequal path.1 'database' %}style="display: block;"{% endifequal %}>
+                    <li class="active">
+                        <a href="{% url 'database_list' %}">
+                            <i class="fa fa-database"></i> <span>数据库schema</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endwith %}
     </ul>
 </section>

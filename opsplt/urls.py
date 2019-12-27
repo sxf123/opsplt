@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^accounts/login/$',LoginView.as_view(),name='login'),
     url(r'^account/',include('account.urls')),
     url(r'^application/',include('application.urls')),
-    url(r'^job/',include('job.urls'))
+    url(r'^job/',include('job.urls')),
+    url(r'^database/',include('database.urls'))
 ]

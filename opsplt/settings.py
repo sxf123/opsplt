@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'dj_pagination',
     'application',
     'job',
-    'account'
+    'account',
+    'database'
 ]
 
 MIDDLEWARE = [
@@ -201,3 +202,4 @@ LOGGING = {
     }
 }
 
+FLYWAY_BASEDIR = "/opt/flyway"
