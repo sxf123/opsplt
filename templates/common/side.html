@@ -110,6 +110,7 @@
             </li>
         {% endwith %}
         {% endif %}
+        {% if perms.database.scan_database %}
         {% with request.path|split_path as path %}
             <li class="treeview {% ifequal path.1 'database' %}menu-open{% endifequal %}">
                 <a href="">
@@ -127,5 +128,6 @@
                 </ul>
             </li>
         {% endwith %}
+        {% endif %}
     </ul>
 </section>

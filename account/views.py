@@ -128,7 +128,7 @@ class GroupAdd(View):
     @method_decorator(permission_required('auth.add_group',raise_exception=True))
     def get(self,request,*args,**kwargs):
         group_add_form = GroupAddForm()
-        content = ContentType.objects.filter(Q(app_label='cmdb') | Q(app_label='job') | Q(app_label='application') | Q(app_label='account') | Q(app_label='auth'))
+        content = ContentType.objects.filter(Q(app_label='cmdb') | Q(app_label='job') | Q(app_label='application') | Q(app_label='account') | Q(app_label='auth') | Q(app_label='database'))
         permission_list = []
         for c in content:
             permission = Permission.objects.filter(content_type=c)
@@ -162,7 +162,7 @@ class GroupUpdate(View):
         id = kwargs.get('id')
         group = Group.objects.get(pk=id)
         group_update_form = GroupUpdateForm(model_to_dict(group))
-        content = ContentType.objects.filter(Q(app_label='cmdb') | Q(app_label='job') | Q(app_label='application') | Q(app_label='account') | Q(app_label='auth'))
+        content = ContentType.objects.filter(Q(app_label='cmdb') | Q(app_label='job') | Q(app_label='application') | Q(app_label='account') | Q(app_label='auth') | Q(app_label='database'))
         permission_list = []
         for c in content:
             permission = Permission.objects.filter(content_type=c)

@@ -1,0 +1,122 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <style>
+        #sql_add_form label.error {
+            color: Red;
+            font-size: 10px;
+            font-style: italic;
+        }
+    </style>
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">编写SQL脚本</h4>
+        </div>
+        <form class="form-horizontal" role="form" id="sql_add_form">
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="sql_name">SQL脚本名称</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="sql_name" id="sql_name" placeholder="请输入SQL脚本名称"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="sql_content">SQL脚本内容</label>
+                    <div class="col-sm-6">
+                        <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary" id="sql_submit">提交</button>
+                        <a type="button" class="btn btn-default" href="{% url 'sql_list' database_id %}">取消</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function() {
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("code");
+            editor.setTheme("ace/theme/clouds");
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap', 'free');
+            editor.setValue("");
+            editor.getSession().setMode("ace/mode/sql");
+            editor.moveCursorTo(0, 0);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+
+            function validSqlSubmit() {
+                return $('#sql_add_form').validate({
+                    ignore: '',
+                    rules: {
+                        sql_name: {
+                            required: true,
+                            remote: {
+                                url: '/database/sql/exist/',
+                                type: 'POST',
+                                data: {
+                                    sql_name: function () {return $('#sql_name').val();},
+                                    sql_version: function () {
+                                        let date = new Date();
+                                        var y = date.getFullYear().toString();
+                                        var m = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1).toString() : (date.getMonth() + 1).toString();
+                                        var d = date.getDate() < 10 ? "0" + date.getDate().toString() : date.getDate().toString();
+                                        console.log(y + m + d);
+                                        return y + m + d;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    messages: {
+                        sql_name: {
+                            required: "请输入SQL脚本名称",
+                            remote: "sql文件已存在"
+                        }
+                    },
+                    errorPlacement: function (error,element) {
+                        error.insertAfter(element);
+                    },
+                    success: function (element) {
+                        $(element).remove();
+                    }
+                }).form();
+            }
+
+            $('#sql_submit').on('click', function () {
+                $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                });
+                var sql_name = $('#sql_name').val();
+                var sql_content = editor.getValue();
+                if (validSqlSubmit()) {
+                    $.ajax({
+                        url: "{% url 'sql_add' database_id %}",
+                        type: "POST",
+                        data: {
+                            'sql_name': sql_name,
+                            'sql_content': sql_content
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            window.location.replace("{% url 'sql_list' database_id %}");
+                        },
+                        error: function(err){
+                            console.log(err);
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+{% endblock %}
