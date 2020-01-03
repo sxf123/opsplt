@@ -36,3 +36,15 @@ class SqlFile(models.Model):
         verbose_name = "SQL脚本管理"
         verbose_name_plural = verbose_name
         db_table = "sql_script"
+
+class Result(models.Model):
+    migrate_id = models.CharField(max_length=40,null=True,blank=True,verbose_name='迁移任务ID')
+    migrate_status = models.IntegerField(null=True,blank=True,verbose_name="迁移状态")
+    migrate_result = models.TextField(null=True,blank=True,verbose_name="迁移结果")
+
+    def __str__(self):
+        return self.migrate_id
+    class Meta:
+        verbose_name = "迁移结果"
+        verbose_name_plural = verbose_name
+        db_table = "migrate_result"

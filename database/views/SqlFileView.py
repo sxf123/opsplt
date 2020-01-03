@@ -99,7 +99,6 @@ class SqlFileExistView(View):
     @method_decorator(login_required)
     def post(self,request,*args,**kwargs):
         sql_name = request.POST.get('sql_name')
-        sql_version = request.POST.get('sql_version')
         if SqlFile.objects.filter(Q(sql_name=sql_name)).exists():
             result = False
         else:
@@ -108,3 +107,13 @@ class SqlFileExistView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super(SqlFileExistView,self).dispatch(request,*args,**kwargs)
+
+class SqlFileVisitView(View):
+    def __init__(self):
+        self.context = {}
+    @method_decorator(login_required)
+    def get(self,request,*args,**kwargs):
+        sql_file_id = kwargs.get('id')
+        sql_file = SqlFile.objects.get(pk=sql_file_id)
+        self.context = {"sql_file":sql_file}
+        return render(request,'database/sql_visit.html',self.context)

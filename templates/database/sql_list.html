@@ -47,16 +47,9 @@
                             <td>{{ sql_file.create_time|date:"Y-m-d H:i:s" }}</td>
                             <td>{{ sql_file.update_time|date:"Y-m-d H:i:s" }}</td>
                             <td>
-                                {% if perms.database.change_sqlfile %}
-                                <a href="{% url 'sql_update' sql_file.id %}">
-                                    <button type="button" class="btn btn-primary btn-sm">更新</button>
+                                <a href="{% url 'sql_visit' sql_file.id %}">
+                                    <button type="button" class="btn btn-link btn-sm">查看</button>
                                 </a>
-                                {% endif %}
-                                {% if perms.database.delete_sqlfile %}
-                                <a href="">
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button({{ sql_file.id }})">删除</button>
-                                </a>
-                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -66,7 +59,6 @@
         <div class="box-footer">
             <div class="row">
                 <div class="col-xs-6" id="delete_all">
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSelectedModal" onclick="modify_delete_button()">删除</button>
                 </div>
                 <div class="col-xs-6" id="paginate">
                     {% paginate %}
@@ -74,130 +66,4 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="checkModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        删除SQL脚本
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center">请确认是否删除该SQL脚本</h4>
-			    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="delete_database()">
-                        确认删除
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="deleteSelectedModal" role="dialog" aria-labelledby="deleteSelectedModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="deleteSelectedModalLabel">
-                        删除选中SQL脚本
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center">请确认是否删除选中SQL脚本</h4>
-			    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="">
-                        确认删除
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        function modify_button(id) {
-            $('#checkModal .btn-primary').attr('onclick','delete_database(' + id + ')');
-        }
-        function delete_database(id) {
-           $.ajaxSetup({
-               data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
-           });
-           $.ajax({
-               url: '/database/sql/delete/',
-               type: 'post',
-               data: {
-                   'id': id
-               },
-               success: function (res) {
-                   $('#checkModal').modal('hide');
-                   $('#' + id).remove();
-               },
-               error: function (err) {
-                   console.log(err);
-               }
-           });
-        }
-        $(function () {
-            $('#selectAll').change(function () {
-                var checkboxes = $('#tbody').find("input[type='checkbox']");
-                var isChecked = $(this).is(':checked');
-                $(this).attr('checked', $(this).is(':checked'));
-                for (var i = 0; i < checkboxes.length; i++) {
-                    $(checkboxes[i]).prop('checked', isChecked);
-                }
-            });
-        });
-        function modify_delete_button() {
-            var checked = $('#tbody').find("input[type='checkbox']:checked");
-            if(checked.length <= 0){
-                $('#deleteSelectedModal .modal-body .text-center').text('请选择要删除的SQL脚本');
-                $('#deleteSelectedModal .btn-primary').attr('onclick','hide_modal("deleteSelectedModal")');
-                $('#deleteSelectedModal .btn-primary').text('确认')
-            }else{
-                var ids = new Array();
-                checked.each(function () {
-                   ids.push($(this).attr('name'));
-                });
-                $('#deleteSelectedModal .modal-body .text-center').text('请确认是否删除选中SQL脚本');
-                $('#deleteSelectedModal .btn-primary').attr('onclick','delete_selected("' + ids.join(',') + '")');
-                $('#deleteSelectedModal .btn-primary').text('确认删除');
-            }
-        }
-        function delete_selected(ids) {
-            var id_arr = ids.split(',');
-            $.ajaxSetup({
-                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
-            });
-            for (var i = 0; i < id_arr.length; i++) {
-                $.ajax({
-                    url: '/database/sql/delete/',
-                    type: 'post',
-                    data: {
-                        'id': id_arr[i]
-                    },
-                    success: function (res) {
-                        console.log(res);
-                    },
-                    error: function (err) {
-                        console.log(err);
-                    }
-                });
-            }
-            for (var i = 0; i < id_arr.length; i++) {
-                $('#' + id_arr[i]).remove();
-            }
-            $('#deleteSelectedModal').modal('hide');
-        }
-        function hide_modal(id) {
-            $('#' + id).modal('hide');
-        }
-    </script>
 {% endblock %}

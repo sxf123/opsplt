@@ -1,0 +1,87 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h4 class="box-title">执行状态</h4>
+                </div>
+                <div class="box-body with-border">
+                    <div class="progress progress-striped">
+                        <div id="prog" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                            <span class="sr-only">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h4 class="box-title">同步结果</h4>
+                </div>
+                <div class="box-body with-border">
+                    <div id="migrate_res" style="height: 310px;overflow: auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function () {
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $('#migrate_res').html('Pending......');
+            var migrate_id = "{{ migrate_id }}";
+            timer_id = setInterval(migrate_result,2000,migrate_id);
+            function migrate_result(migrate_id){
+                $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                });
+                $.ajax({
+                    url: "{% url 'db_migrate_status' %}",
+                    type: "POST",
+                    data: {
+                        migrate_id: migrate_id
+                    },
+                    success: function (res) {
+                        if(res.status == 'success'){
+                            var arr = res.migrate_result.split("\n");
+                            var dom = $("<div>");
+                            dom.append("<h4>SUCCESS</h4>");
+                            for(var i=0;i<arr.length;i++){
+                                console.log(arr[i]);
+                                domli = $("<p>" + arr[i] + "</p>");
+                                dom.append(domli);
+                            }
+                            dom.append("</div>");
+                            $("#migrate_res").html(dom);
+                            $("#prog").css("width","100%");
+                            $("#prog").attr("class","progress-bar progress-bar-success");
+                            clearInterval(timer_id);
+                        }else if(res.status == "failure"){
+                            var arr = res.migrate_result.split("\n");
+                            var dom = $("<div>");
+                            dom.append("<h4>FAILURE</h4>");
+                            for(var i=0;i<arr.length;i++){
+                                console.log(arr[i]);
+                                domli = $("<p>" + arr[i] + "</p>");
+                                dom.append(domli);
+                            }
+                            dom.append("<div>");
+                            $("#migrate_res").html(dom);
+                            $("#prog").css("width","100%");
+                            $("#prog").attr("class","progress-bar progress-bar-danger");
+                            clearInterval(timer_id);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

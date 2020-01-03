@@ -5,13 +5,6 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render
 from django.http import JsonResponse
 from job.models import Job
-from cmdb.models.Host import Host
-from job.tasks import run_playbook
-from job.models import JobState
-import time
-from celery.result import AsyncResult
-from job.models import JobResult
-from django.views.decorators.csrf import csrf_exempt
 
 class JobListView(View):
     def __init__(self):

@@ -5,6 +5,7 @@ from opsplt.settings import FLYWAY_BASEDIR
 import os
 import jinja2
 import logging
+from database.models import Result
 
 logger = logging.getLogger("default")
 
@@ -22,4 +23,18 @@ def database_init(schema_name,schema_url,schema_username,schema_password):
         fp.close()
     res = subprocess.getstatusoutput("{0} -configFiles={1} baseline".format(flyway_dir,f))
     logger.info('[INFO] output: ' + res[1])
+    return res
+
+@shared_task
+def db_migrate(configFile):
+    flyway_dir = os.path.join(FLYWAY_BASEDIR,'flyway')
+    config_dir = os.path.join(FLYWAY_BASEDIR,'conf')
+    config_file = os.path.join(config_dir,configFile)
+    res = subprocess.getstatusoutput("{0} -configFiles={1} migrate".format(flyway_dir,config_file))
+    result = Result(
+        migrate_id=db_migrate.request.id,
+        migrate_status=res[0],
+        migrate_result=res[1]
+    )
+    result.save()
     return res

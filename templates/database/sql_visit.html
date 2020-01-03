@@ -1,0 +1,50 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">查看SQL脚本</h4>
+        </div>
+        <form class="form-horizontal" role="form" id="sql_add_form">
+            <div class="box-body with-border">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="sql_name">SQL脚本名称</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="sql_name" id="sql_name" placeholder="请输入SQL脚本名称" value="{{ sql_file.sql_name }}" disabled="true"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="sql_content">SQL脚本内容</label>
+                    <div class="col-sm-6">
+                        <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ sql_file.sql_content|safe }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <a type="button" class="btn btn-primary" href="{% url 'sql_list' sql_file.database.id %}">返回</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="application/javascript">
+        $(function() {
+            ace.require("ace/tools/language_tools");
+            var editor=ace.edit('code');
+            editor.moveCursorTo(0,0);
+            editor.setTheme('ace/theme/clouds');
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap','free');
+            editor.getSession().setMode('ace/mode/sql');
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.setReadOnly(true);
+        });
+    </script>
+{% endblock %}

@@ -59,6 +59,9 @@
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button({{ database.id }})">删除</button>
                                 </a>
                                 {% endif %}
+                                <a href="">
+                                    <button type="button" class="btn btn-github btn-sm" id="migrate" onclick="migrate_db({{ database.id }})">结构同步</button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -231,6 +234,8 @@
                                     '        <a href="">' +
                                     '            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button(' + res.database_list[i].id + ')">删除</button>' +
                                     '        </a>' +
+                                    '<a>' +
+                                    '<button type="button" class=' +
                                     '    </td>' +
                                     '</tr>');
                                 $('#tbody').append(domli);
@@ -247,6 +252,25 @@
                     window.location.replace("{% url 'database_list' %}")
                 }
             });
-        })
+        });
+        function migrate_db(database_id) {
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: "{{ csrf_token }}"}
+            });
+            $.ajax({
+                url: "{% url 'db_migrate' %}",
+                type: "POST",
+                data: {
+                    id: database_id
+                },
+                success: function (res) {
+                    console.log(res);
+                    window.location.replace("/database/migrate/result/?migrate_id=" + res.migrate_id);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
     </script>
 {% endblock %}
