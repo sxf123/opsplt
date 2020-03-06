@@ -206,5 +206,3 @@ LOGGING = {
 }
 
 FLYWAY_BASEDIR = "/opt/flyway"
-
-KEY_LIST = ["application","card-service","company-service","config-service","data-compute","data-service","goods-center","member-service","order-service","os-gateway","pay-gateway","token-service","trading-center"]

@@ -14,3 +14,8 @@ def put_key_value(host,port,key,value):
         c.kv.put(key,value)
     except Exception:
         logger.info(traceback.format_exc())
+
+def list_key(host,port):
+    c = consul.Consul(host=host,port=port,scheme="http")
+    key_list = [key["Key"] for key in c.kv.get("config",recurse=True)[1]]
+    return key_list

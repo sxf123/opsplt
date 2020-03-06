@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from consul_manage.models import ConsulStatus
-from opsplt.settings import KEY_LIST
 from common.consul_config import get_key_value
+from common.consul_config import list_key
 from django.http import JsonResponse
 from common.consul_config import put_key_value
 import chardet
@@ -16,7 +16,8 @@ class ConsulConfigListView(View):
     def get(self,request,*args,**kwargs):
         id = kwargs.get("id")
         consul = ConsulStatus.objects.get(pk=id)
-        key_dict = [{"key_name":"config/{}/data".format(key),"custom":consul.custom} for key in KEY_LIST]
+        key_list = list_key(consul.address,consul.port)
+        key_dict = [{"key_name":key,"custom":consul.custom} for key in key_list]
         self.context = {'key_dict':key_dict,'config_id':id}
         return render(request,'consul_manage/config_list.html',self.context)
 
