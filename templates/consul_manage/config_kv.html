@@ -1,0 +1,62 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">{{ key }}</h4>
+        </div>
+        <div class="box-body with-border">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ value }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary" id="consul_submit">提交</button>
+                    <a type="button" class="btn btn-default" href="{% url 'consul_config_list' config_id %}">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function() {
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("code");
+            editor.setTheme("ace/theme/mono_industrial");
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap', 'free');
+            editor.getSession().setMode("ace/mode/yaml");
+            editor.moveCursorTo(0, 0);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            $('#consul_submit').on('click',function () {
+                var value = editor.getValue();
+                $.ajaxSetup({
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                });
+                $.ajax({
+                    url: "{% url 'config_consul_kv_save' %}",
+                    type: 'POST',
+                    data: {
+                        id: "{{ config_id }}",
+                        key: "{{ key }}",
+                        value: value
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        window.location.replace("{% url 'consul_config_list' config_id %}")
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -13,6 +13,7 @@ from database.tasks import database_init
 from opsplt.settings import FLYWAY_BASEDIR
 import os
 import logging
+import jinja2
 
 logger = logging.getLogger("default")
 
@@ -74,6 +75,15 @@ class DatabaseUpdateView(View):
         database.schema_password = encrypt(AES_ENCRYPT_KEY,request.POST.get('schema_password'))
         database.schema_env = request.POST.get('schema_env')
         database.save()
+        flyway_confdir = os.path.join(FLYWAY_BASEDIR,'conf')
+        flyway_conffile = os.path.join(flyway_confdir,"{}-{}.conf".format(database.schema_name,database.schema_url))
+        loader = jinja2.FileSystemLoader(searchpath="flyway/")
+        env = jinja2.Environment(loader=loader)
+        template = env.get_template("flyway.conf", "utf-8")
+        content = template.render(schema_name=request.POST.get('schema_name'), schema_url=request.POST.get('schema_url'), schema_username=request.POST.get('schema_username'),schema_password=request.POST.get('schema_password'))
+        with open(flyway_conffile, "w") as fp:
+            fp.write(content)
+            fp.close()
         return HttpResponseRedirect(reverse('database_list'))
 
 class DatabaseDeleteView(View):

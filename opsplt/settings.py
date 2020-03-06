@@ -50,11 +50,14 @@ INSTALLED_APPS = [
     'cmdb',
     'djcelery',
     'rest_framework',
+    'rest_framework.authtoken',
     'dj_pagination',
     'application',
     'job',
     'account',
-    'database'
+    'database',
+    'consul_manage',
+    'deployment'
 ]
 
 MIDDLEWARE = [
@@ -162,7 +165,7 @@ STATICFILES_FINDERS = (
 JOBID_CHOICE = "abcdefghijklmnopqrstuvwxyz1234567890"
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 
 AES_ENCRYPT_KEY = "EdKCoeSJz2yDNCA7"
@@ -203,3 +206,5 @@ LOGGING = {
 }
 
 FLYWAY_BASEDIR = "/opt/flyway"
+
+KEY_LIST = ["application","card-service","company-service","config-service","data-compute","data-service","goods-center","member-service","order-service","os-gateway","pay-gateway","token-service","trading-center"]

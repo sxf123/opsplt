@@ -23,6 +23,9 @@ class HostAddForm(forms.Form):
     disk = forms.IntegerField(
         widget=TextInput(attrs={'id':'disk','class':'form-control','placeholder':'请输入磁盘'})
     )
+    instance_id = forms.CharField(
+        widget=TextInput(attrs={'id':'instance_id','class':'form-control','placeholder':'请输入实例ID'})
+    )
 
 class HostUpdateForm(HostAddForm):
     hostname = forms.CharField(

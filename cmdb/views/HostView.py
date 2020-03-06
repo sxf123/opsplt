@@ -11,7 +11,6 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
-from common.ansible_api import AdHoc
 from opsplt.settings import JOBID_CHOICE
 import random
 from common.ansible_pass import autocreate_publickey
@@ -51,6 +50,7 @@ class HostAdd(View):
             cpu_nums = host_add_form.cleaned_data.get('cpu_nums')
             memory = host_add_form.cleaned_data.get('memory')
             disk = host_add_form.cleaned_data.get('disk')
+            instance_id = host_add_form.cleaned_data.get('instance_id')
             node = request.POST.getlist('node')
             host = Host(
                 hostname = hostname,
@@ -59,7 +59,8 @@ class HostAdd(View):
                 hosttype = hosttype,
                 cpu_nums = cpu_nums,
                 memory = memory,
-                disk = disk
+                disk = disk,
+                instance_id = instance_id
             )
             host.save()
             for n in node:
@@ -77,7 +78,7 @@ class HostUpdate(View):
     def get(self,request,*args,**kwargs):
         id = kwargs.get('id')
         host = Host.objects.get(pk=id)
-        host_update_form = HostUpdateForm({'hostname':host.hostname,'hostname_hidden':host.hostname,'ipaddress':host.ipaddress,'hosttype':host.hosttype,'cpu_nums':host.cpu_nums,'memory':host.memory,'disk':host.disk})
+        host_update_form = HostUpdateForm({'hostname':host.hostname,'hostname_hidden':host.hostname,'ipaddress':host.ipaddress,'hosttype':host.hosttype,'cpu_nums':host.cpu_nums,'memory':host.memory,'disk':host.disk,'instance_id':host.instance_id})
         nodes = Node.objects.filter(level=3)
         node_list = [{'id': n.node_id, 'text': '/'.join(get_pid_list(n))} for n in nodes]
         self.context = {'host_update_form': host_update_form,'node_list':node_list,'node_id_list':[n.node_id for n in host.node.all()]}
@@ -96,6 +97,7 @@ class HostUpdate(View):
             host.cpu_nums = host_update_form.cleaned_data.get('cpu_nums')
             host.memory = host_update_form.cleaned_data.get('memory')
             host.disk = host_update_form.cleaned_data.get('disk')
+            host.instance_id = host_update_form.cleaned_data.get('instance_id')
             node_list = request.POST.getlist('node')
             host.save()
             nodes = host.node.all()

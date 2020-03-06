@@ -1,0 +1,251 @@
+{% extends 'common/base.html' %}
+{% load pagination_tags %}
+{% block main_body %}
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="col-xs-1" style="padding-left: 0;">
+                {% if perms.deployment.add_project %}
+                    <a type="button" class="btn btn-primary btn-sm" href="{% url 'project_add' %}">添加项目</a>
+                {% endif %}
+            </div>
+            <div class="col-xs-8" style="padding-left: 0;"></div>
+            <div class="col-xs-3" style="padding-right: 0;">
+                <div class="input-group inline-group">
+                    <input type="text" class="form-control input-sm" name="search" placeholder="请输入项目名称" id="search_project"/>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-primary" id="search"> -搜索- </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped table-bordered text-center table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <input id="selectAll" type="checkbox"/>
+                        </th>
+                        <th>项目名称</th>
+                        <th>项目端口</th>
+                        <th>项目创建时间</th>
+                        <th>项目更新时间</th>
+                        <th>
+                            <div>操作</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% autopaginate project_list 10 %}
+                    {% for project in project_list %}
+                        <tr id="{{ project.id }}">
+                            <td>
+                                <input type="checkbox" name="{{ project.id }}"/>
+                            </td>
+                            <td>{{ project.project_name }}</td>
+                            <td>{{ project.project_port }}</td>
+                            <td>{{ project.create_time|date:"Y-m-d" }}</td>
+                            <td>{{ project.update_time|date:"Y-m-d" }}</td>
+                            <td>
+                                {% if perms.deployment.change_project %}
+                                <a href="{% url 'project_update' project.id %}">
+                                    <button type="button" class="btn btn-primary btn-sm">更新</button>
+                                </a>
+                                {% endif %}
+                                {% if perms.deployment.delete_project %}
+                                <a href="">
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button({{ project.id }})">删除</button>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-xs-6" id="delete_all">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteSelectedModal" onclick="modify_delete_button()">删除</button>
+                </div>
+                <div class="col-xs-6" id="paginate">
+                    {% paginate %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="checkModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        删除项目
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">请确认是否删除该项目</h4>
+			    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="delete_database()">
+                        确认删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSelectedModal" role="dialog" aria-labelledby="deleteSelectedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="deleteSelectedModalLabel">
+                        删除选中项目
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">请确认是否删除选中项目</h4>
+			    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="">
+                        确认删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function modify_button(id) {
+            $('#checkModal .btn-primary').attr('onclick','delete_project(' + id + ')');
+        }
+        function delete_project(id) {
+           $.ajaxSetup({
+               data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+           });
+           $.ajax({
+               url: '/deployment/project/delete/',
+               type: 'post',
+               data: {
+                   'id': id
+               },
+               success: function (res) {
+                   $('#checkModal').modal('hide');
+                   $('#' + id).remove();
+               },
+               error: function (err) {
+                   console.log(err);
+               }
+           });
+        }
+        $(function () {
+            $('#selectAll').change(function () {
+                var checkboxes = $('#tbody').find("input[type='checkbox']");
+                var isChecked = $(this).is(':checked');
+                $(this).attr('checked', $(this).is(':checked'));
+                for (var i = 0; i < checkboxes.length; i++) {
+                    $(checkboxes[i]).prop('checked', isChecked);
+                }
+            });
+        });
+        function modify_delete_button() {
+            var checked = $('#tbody').find("input[type='checkbox']:checked");
+            if(checked.length <= 0){
+                $('#deleteSelectedModal .modal-body .text-center').text('请选择要删除的项目');
+                $('#deleteSelectedModal .btn-primary').attr('onclick','hide_modal("deleteSelectedModal")');
+                $('#deleteSelectedModal .btn-primary').text('确认')
+            }else{
+                var ids = new Array();
+                checked.each(function () {
+                   ids.push($(this).attr('name'));
+                });
+                $('#deleteSelectedModal .modal-body .text-center').text('请确认是否删除选中项目');
+                $('#deleteSelectedModal .btn-primary').attr('onclick','delete_selected("' + ids.join(',') + '")');
+                $('#deleteSelectedModal .btn-primary').text('确认删除');
+            }
+        }
+        function delete_selected(ids) {
+            var id_arr = ids.split(',');
+            $.ajaxSetup({
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            for (var i = 0; i < id_arr.length; i++) {
+                $.ajax({
+                    url: '/deployment/project/delete/',
+                    type: 'post',
+                    data: {
+                        'id': id_arr[i]
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+            for (var i = 0; i < id_arr.length; i++) {
+                $('#' + id_arr[i]).remove();
+            }
+            $('#deleteSelectedModal').modal('hide');
+        }
+        function hide_modal(id) {
+            $('#' + id).modal('hide');
+        }
+        $(function () {
+            $('#search').click(function () {
+                var project_name = $('#search_project').val();
+                console.log(project_name);
+                if(project_name != "") {
+                    $.ajaxSetup({
+                        data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                    });
+                    $.ajax({
+                        url: "/deployment/project/search/",
+                        type: 'post',
+                        data: {
+                            'project_name': project_name
+                        },
+                        success: function (res) {
+                            $('#tbody').empty();
+                            for(var i=0;i<res.project_list.length;i++) {
+                                var domli = $('<tr id="' + res.project_list[i].id + '">' +
+                                    '    <td>' +
+                                    '        <input type="checkbox" name="' + res.project_list[i].id + '"/>' +
+                                    '    </td>' +
+                                    '    <td>' + res.project_list[i].project_name + '</td>' +
+                                    '    <td>' + res.project_list[i].project_port + '</td>' +
+                                    '    <td>' + res.project_list[i].create_time + '</td>' +
+                                    '    <td>' + res.project_list[i].update_time + '</td>' +
+                                    '    <td>' +
+                                    '        <a href="/deployment/project/update/' + res.project_list[i].id + '/">' +
+                                    '            <button type="butotn" class="btn btn-primary btn-sm">更新</button>' +
+                                    '        </a>' +
+                                    '        <a href="">' +
+                                    '            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button(' + res.project_list[i].id + ')">删除</button>' +
+                                    '        </a>' +
+                                    '    </td>' +
+                                    '</tr>');
+                                $('#tbody').append(domli);
+                                $('#paginate').empty();
+                                $('#delete_all').empty();
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    });
+                }
+                else{
+                    window.location.replace("{% url 'project_list' %}")
+                }
+            });
+        });
+    </script>
+{% endblock %}

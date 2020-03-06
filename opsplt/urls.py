@@ -18,6 +18,7 @@ from django.contrib import admin
 from common.views import LoginView
 from django.conf.urls import handler403
 from common.views import permission_denied
+from rest_framework_jwt.views import obtain_jwt_token
 
 handler403 = permission_denied
 
@@ -25,10 +26,13 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^common/',include('common.urls')),
     url(r'^cmdb/',include('cmdb.urls')),
-    url(r'^api/',include('cmdbapi.urls')),
+    url(r'^api/v1/api-auth$',obtain_jwt_token),
+    url(r'^api/v1/cmdb/',include('cmdbapi.urls')),
     url(r'^accounts/login/$',LoginView.as_view(),name='login'),
     url(r'^account/',include('account.urls')),
     url(r'^application/',include('application.urls')),
     url(r'^job/',include('job.urls')),
-    url(r'^database/',include('database.urls'))
+    url(r'^database/',include('database.urls')),
+    url(r'^consul_manage/',include('consul_manage.urls')),
+    url(r'^deployment/',include('deployment.urls'))
 ]

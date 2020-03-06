@@ -1,5 +1,5 @@
 #!/bin/bash
-PYENV_DIR=/opt/py36/bin/activate
+PYENV_DIR=/opt/opsplt_env/bin/activate
 PROJ_DIR=/opt/opsplt
 UWSGI_FILE=${PROJ_DIR}/uwsgi.ini
 
@@ -10,27 +10,28 @@ fi
 
 function start() {
 	source ${PYENV_DIR}
-	pid=`ps -ef | grep uwsgi | grep -v grep | wc -l`
+	pid=`ps -ef | grep /opt/opsplt/uwsgi.ini | grep -v grep | wc -l`
 	if [[ ${pid} -gt 0 ]];
 	then
 		cd ${PROJ_DIR}
-		uwsgi --stop ${PROJ_DIR}/opsplt.pid
+    /opt/opsplt_env/bin/uwsgi --stop ${PROJ_DIR}/opsplt.pid
 	fi
-	uwsgi --ini ${UWSGI_FILE}
+	/opt/opsplt_env/bin/uwsgi --ini ${UWSGI_FILE}
 }
 
 function stop() {
 	source ${PYENV_DIR}
-	pid=`ps -ef | grep uwsgi | grep -v grep | wc -l`
+	pid=`ps -ef | grep /opt/opsplt/uwsgi.ini | grep -v grep | wc -l`
 	if [[ ${pid} -gt 0 ]];
 	then
 		cd ${PROJ_DIR}
-		uwsgi --stop ${PROJ_DIR}/opsplt.pid
+		/opt/opsplt_env/bin/uwsgi --stop ${PROJ_DIR}/opsplt.pid
 	fi
 }
 
 function restart() {
 	stop
+	sleep 2
 	start
 }
 

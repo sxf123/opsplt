@@ -1,0 +1,40 @@
+{% extends 'common/base.html' %}
+{% block main_body %}
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h4 class="box-title">工单-{{ ticket.ticket_no }}-配置项</h4>
+        </div>
+        <div class="box-body with-border">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ ticket.config_content }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <a type="button" class="btn btn-primary" href="{% url 'ticket_detail' %}?ticket_no={{ ticket.ticket_no }}">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="application/javascript">
+        $(function() {
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("code");
+            editor.setTheme("ace/theme/mono_industrial");
+            editor.setFontSize(14);
+            editor.getSession().setTabSize(2);
+            editor.setOption('wrap', 'free');
+            editor.getSession().setMode("ace/mode/yaml");
+            editor.moveCursorTo(0, 0);
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true,
+                enableLiveAutocompletion: true
+            });
+            editor.setReadOnly(true);
+        });
+    </script>
+{% endblock %}

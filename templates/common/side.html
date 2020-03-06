@@ -89,27 +89,27 @@
                 </ul>
             </li>
         {% endwith %}
-        {% if perms.application.scan_application %}
-        {% with request.path|split_path as path %}
-            <li class="treeview {% ifequal path.1 'application' %}menu-open{% endifequal %}">
-                <a href="">
-                    <i class="fa fa-gitlab"></i> <span>应用管理</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                {% if perms.application.scan_service %}
-                <ul class="treeview-menu" {% ifequal path.1 'application' %}style="display: block;"{% endifequal %}>
-                    <li class="active">
-                        <a href="{% url 'service_list' %}">
-                            <i class="fa fa-cloud"></i> <span>服务管理</span>
-                        </a>
-                    </li>
-                </ul>
-                {% endif %}
-            </li>
-        {% endwith %}
-        {% endif %}
+{#        {% if perms.application.scan_application %}#}
+{#        {% with request.path|split_path as path %}#}
+{#            <li class="treeview {% ifequal path.1 'application' %}menu-open{% endifequal %}">#}
+{#                <a href="">#}
+{#                    <i class="fa fa-gitlab"></i> <span>应用管理</span>#}
+{#                    <span class="pull-right-container">#}
+{#                        <i class="fa fa-angle-left pull-right"></i>#}
+{#                    </span>#}
+{#                </a>#}
+{#                {% if perms.application.scan_service %}#}
+{#                <ul class="treeview-menu" {% ifequal path.1 'application' %}style="display: block;"{% endifequal %}>#}
+{#                    <li class="active">#}
+{#                        <a href="{% url 'service_list' %}">#}
+{#                            <i class="fa fa-cloud"></i> <span>服务管理</span>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#                {% endif %}#}
+{#            </li>#}
+{#        {% endwith %}#}
+{#        {% endif %}#}
         {% if perms.database.scan_database %}
         {% with request.path|split_path as path %}
             <li class="treeview {% ifequal path.1 'database' %}menu-open{% endifequal %}">
@@ -125,6 +125,60 @@
                             <i class="fa fa-database"></i> <span>数据库schema</span>
                         </a>
                     </li>
+                </ul>
+            </li>
+        {% endwith %}
+        {% endif %}
+        {% if perms.consul.scan_consul %}
+        {% with request.path|split_path as path %}
+            <li class="treeview {% ifequal path.1 'consul_manage' %}menu-open{% endifequal %}">
+                <a href="">
+                    <i class="fa fa-registered"></i> <span>注册中心管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" {% ifequal path.1 'consul_manage' %}style="display: block;"{% endifequal %}>
+                    <li class="active">
+                        <a href="{% url 'consul_list' %}">
+                            <i class="fa fa-connectdevelop"></i> <span>consul管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% endwith %}
+        {% endif %}
+        {% if perms.deployment.scan_deployment %}
+        {% with request.path|split_path as path %}
+            <li class="treeview" {% ifequal path.1 'deployment' %}menu-open{% endifequal %}>
+                <a href="">
+                    <i class="fa fa-github-square"></i> <span>发布管理</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" {% ifequal path.1 'deployment' %}style="display: block;"{% endifequal %}>
+                    {% if perms.deployment.scan_project %}
+                    <li class="active">
+                        <a href="{% url 'project_list' %}">
+                            <i class="fa fa-gitlab"></i> <span>项目管理</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if perms.deployment.add_ticket %}
+                    <li class="active">
+                        <a href="{% url 'ticket_add' %}">
+                            <i class="fa fa-ticket"></i> <span>发布工单</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if perms.deployment.scan_ticket %}
+                    <li class="active">
+                        <a href="{% url 'ticket_list' %}">
+                            <i class="fa fa-pagelines"></i> <span>工单列表</span>
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </li>
         {% endwith %}

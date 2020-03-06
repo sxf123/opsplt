@@ -45,15 +45,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="schema_env">schema所属环境</label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="schema_env">
-                            <option value="">----------</option>
-                            {% for env,env_name in env_dict.items %}
-                                {% ifequal env database.schema_env %}
-                                    <option value="{{ env }}" selected="selected">{{ env_name }}</option>
-                                {% endifequal %}
-                                <option value="{{ env }}">{{ env_name }}</option>
-                            {% endfor %}
-                        </select>
+                        <input type="text" class="form-control" id="schema_env" name="schema_env" placeholder="数据库所属环境" value="{{ database.schema_env }}"
                     </div>
                 </div>
             </div>

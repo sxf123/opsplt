@@ -1,0 +1,55 @@
+{% extends 'common/base.html' %}
+{% load pagination_tags %}
+{% block main_body %}
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <div class="col-xs-1" style="padding-left: 0;">
+            </div>
+            <div class="col-xs-8" style="padding-left: 0;"></div>
+            <div class="col-xs-3" style="padding-right: 0;">
+                <div class="input-group inline-group">
+                    <input type="text" class="form-control input-sm" name="search" placeholder="请输入服务名称" id="search_database"/>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-primary" id="search"> -搜索- </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table table-striped table-bordered text-center table-hover">
+                <thead>
+                    <tr>
+                        <th>配置KEY</th>
+                        <th>consul所属客户</th>
+                        <th>
+                            <div>操作</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% autopaginate key_dict 10 %}
+                    {% for key in key_dict %}
+                        <tr>
+                            <td>{{ key.key_name }}</td>
+                            <td>{{ key.custom }}</td>
+                            <td>
+                                <a href="{% url 'consul_config_kv' config_id %}?key={{ key.key_name }}">
+                                    <button type="button" class="btn btn-link btn-sm">编辑配置</button>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-xs-6" id="delete_all">
+                </div>
+                <div class="col-xs-6" id="paginate">
+                    {% paginate %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

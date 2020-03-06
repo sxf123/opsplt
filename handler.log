@@ -1,0 +1,745 @@
+2019-12-27 17:36:40,882 INFO [ [INFO] status: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://172.16.25.209:3306/test (MySQL 5.7)
+Schema history table `test`.`flyway_schema_history` already initialized with (1,<< Flyway Baseline >>). Skipping.
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 24
+2019-12-27 18:13:48,694 INFO [ [INFO] delete /opt/flyway/conf/test-172.16.25.209.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 89
+2019-12-27 18:15:11,489 INFO [ [INFO] status: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://172.16.25.209:3306/test (MySQL 5.7)
+Schema history table `test`.`flyway_schema_history` already initialized with (1,<< Flyway Baseline >>). Skipping.
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 24
+2020-01-02 17:52:51,603 INFO [ [INFO] write sql file V20200102__create_table.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 53
+2020-01-02 19:48:44,160 INFO [ [INFO] write sql file V20200102__CreateTable.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 54
+2020-01-02 19:55:29,394 INFO [ [INFO] write sql file V1577966129__create_table.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-02 19:56:18,283 INFO [ [INFO] write sql file V1577966129__create_table.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 80
+2020-01-02 19:59:51,616 INFO [ [INFO] write sql file V1577966391__create_tabble1.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-02 20:09:46,107 INFO [ [INFO] write sql file V1577966986__create_table.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-02 20:16:12,840 INFO [ [INFO] write sql file V1577967372__create_table1.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-02 20:16:34,241 INFO [ [INFO] write sql file V1577967394__create_table2.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-03 09:41:26,891 INFO [ [INFO] write sql file V1577967372__create_table1.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 80
+2020-01-03 14:25:43,064 INFO [ [INFO] write sql file V1577967394__create_table2.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 80
+2020-01-03 14:26:31,486 INFO [ [INFO] write sql file V1578032791__create_table3.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-03 14:48:38,531 INFO [ [INFO] write sql file V1578032791__create_table3.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 80
+2020-01-03 15:07:29,224 INFO [ [INFO] write sql file V1578035249__create_table4.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-03 15:10:31,254 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://172.16.47.114:3306/test (MySQL 5.7)
+Creating Schema History table `test`.`flyway_schema_history` with baseline ...
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-03 15:19:53,660 INFO [ [INFO] write sql file V1578035993__create_table5.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-01-06 10:17:06,839 INFO [ [INFO] delete /opt/flyway/conf/test-172.16.25.209.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 89
+2020-01-06 10:17:08,679 INFO [ [INFO] delete /opt/flyway/conf/test-172.16.47.114.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 89
+2020-01-06 10:19:56,011 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://172.16.25.209:3306/facemall (MySQL 5.7)
+Creating Schema History table `facemall`.`flyway_schema_history` with baseline ...
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-06 19:18:16,357 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 20:15:21,684 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 20:23:33,746 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 20:23:38,804 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 20:50:54,925 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:32:14,914 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 296-298: Body ('证明函') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:33:35,830 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:34:21,752 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:35:48,957 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 296-298: Body ('证明函') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:37:12,815 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 296-298: Body ('证明函') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:37:49,798 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 22:38:49,223 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 199-210: Body ('阿里云远程商品库访问配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:07:25,452 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:09:27,018 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:10:34,181 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:15:10,623 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:20:14,465 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:21:02,976 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:21:45,749 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:23:16,111 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:23:27,499 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 1454-1460: Body ('数据库相关配置') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-06 23:25:00,807 INFO [ Traceback (most recent call last):
+  File "./common/consul_config.py", line 14, in put_key_value
+    c.kv.put(key,value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/base.py", line 621, in put
+    CB.json(), '/v1/kv/%s' % key, params=params, data=value)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/consul/std.py", line 28, in put
+    cert=self.cert)))
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 593, in put
+    return self.request('PUT', url, data=data, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/requests/adapters.py", line 449, in send
+    timeout=timeout
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/opt/opsplt_env/lib/python3.6/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1239, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/opt/python36/lib/python3.6/http/client.py", line 1284, in _send_request
+    body = _encode(body, 'body')
+  File "/opt/python36/lib/python3.6/http/client.py", line 161, in _encode
+    (name.title(), data[err.start:err.end], name)) from None
+UnicodeEncodeError: 'latin-1' codec can't encode characters in position 187-203: Body ('该参数用来开启重试机制，默认是关闭') is not valid Latin-1. Use body.encode('utf-8') if you want to send it encoded in UTF-8.
+] ./common/consul_config.py consul_config.py consul_config put_key_value 16
+2020-01-14 11:26:44,778 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.97.254.194:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 12:23:52,843 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.103.75.66:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 13:43:26,234 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.182.113:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 15:03:35,528 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.111.172.85:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 15:28:36,739 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.90.238:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 16:30:28,077 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.73.55:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 17:01:11,955 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.110.227.188:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 17:27:39,799 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.96.235.255:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 18:19:12,561 INFO [ [INFO] output: ERROR: Invalid argument: .conf] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-14 18:23:53,996 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.104.8.129:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 10:13:05,581 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.110.227.188.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 10:14:06,097 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.110.227.188:3306/facemall (MySQL 5.7)
+Creating Schema History table `facemall`.`flyway_schema_history` with baseline ...
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 14:41:04,715 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.97.254.194.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,767 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.96.235.255.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,780 INFO [ [INFO] delete /opt/flyway/conf/facemall-121.40.90.238.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,793 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.111.172.85.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,806 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.103.75.66.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,818 INFO [ [INFO] delete /opt/flyway/conf/facemall-121.40.73.55.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,836 INFO [ [INFO] delete /opt/flyway/conf/facemall-121.40.182.113.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,849 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.104.8.129.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:04,860 INFO [ [INFO] delete /opt/flyway/conf/facemall-121.40.169.242.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 14:41:13,085 INFO [ [INFO] delete /opt/flyway/conf/facemall-47.110.227.188.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 15:01:16,870 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.97.254.194:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 15:44:22,584 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.103.75.66:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 15:50:35,503 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.182.113:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 15:54:19,163 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.90.238:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 15:58:37,163 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.111.172.85:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:02:52,254 INFO [ [INFO] output: ERROR: Invalid argument: .conf] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:03:09,170 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.73.55:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:03:17,397 INFO [ [INFO] delete /opt/flyway/conf/facemall-121.40.73.55	.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-01-15 16:08:42,281 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.104.8.129:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:10:08,061 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.110.227.188:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:14:06,758 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://47.96.235.255:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:19:06,714 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.169.242:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 16:34:29,736 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.100.200:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 17:13:07,602 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.84.189:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 18:00:27,311 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.43.41.140:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 20:48:41,130 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.199.12.45:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 20:54:13,092 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://118.31.124.243:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 20:58:46,978 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://121.40.151.156:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 21:05:34,849 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://118.31.226.8:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-01-15 21:10:10,655 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://39.100.68.35:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-02-14 21:29:22,867 INFO [ [INFO] write sql file V1581686962__enterprise-wechat.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-02-18 19:56:16,089 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://172.16.47.114:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-02-20 21:11:26,374 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://rm-bp1xe6c5oysxl5qp5.mysql.rds.aliyuncs.com:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-02-20 21:52:46,156 INFO [ [INFO] delete /opt/flyway/conf/facemall-rm-bp1xe6c5oysxl5qp5.mysql.rds.aliyuncs.com.conf success] ./database/views/DatabaseView.py DatabaseView.py DatabaseView post 99
+2020-02-20 21:53:17,831 INFO [ [INFO] output: Flyway Community Edition 6.1.3 by Redgate
+Database: jdbc:mysql://rm-bp1xe6c5oysxl5qp5.mysql.rds.aliyuncs.com:3306/facemall (MySQL 5.7)
+Successfully baselined schema with version: 1] /opt/opsplt/database/tasks.py tasks.py tasks database_init 25
+2020-02-25 09:43:56,049 INFO [ [INFO] write sql file V1582595036__enterprise-wechat-with-company-serviec.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-02-25 13:31:45,556 INFO [ [INFO] write sql file V1582608705__enterprise-wechat-with-company-service-02.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-01 12:17:53,280 INFO [ [INFO] write sql file V1583036273__enterprise-wechat-with-shop.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-02 12:37:51,100 INFO [ [INFO] write sql file V1583123871__shop.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-02 12:58:15,228 INFO [ [INFO] write sql file V1583125095__shop.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-02 15:23:23,923 INFO [ [INFO] write sql file V1583133803__shop-v2.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-02 20:02:51,524 INFO [ [INFO] write sql file V1583150571__enterprise-wechat-with-shop-v2.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55
+2020-03-03 10:27:50,364 INFO [ [INFO] write sql file V1583202470__shop-v3.sql success] ./database/views/SqlFileView.py SqlFileView.py SqlFileView post 55

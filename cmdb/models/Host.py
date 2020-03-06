@@ -11,6 +11,12 @@ class Host(models.Model):
     password = models.CharField(max_length=255,blank=False,null=True,verbose_name="密码")
     node = models.ManyToManyField(Node,db_constraint=False,null=True)
     state = models.CharField(max_length=255,null=True,blank=True,verbose_name="主机状态")
+    instance_id = models.CharField(max_length=255,null=True,blank=True,verbose_name="主机实例ID",unique=True)
+    expired_time = models.CharField(max_length=255,null=True,blank=True,verbose_name="主机过期时间")
+    pay_every_month = models.FloatField(null=True,blank=True,verbose_name="每月花费")
+    cpu_usage = models.FloatField(null=True,blank=True,verbose_name="cpu使用率")
+    memory_usage = models.FloatField(null=True,blank=True,verbose_name="内存使用率")
+    disk_usage = models.TextField(null=True,blank=True,verbose_name="磁盘使用率")
 
 
     def __str__(self):

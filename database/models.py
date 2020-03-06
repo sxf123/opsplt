@@ -9,7 +9,7 @@ class DatabasePermission(models.Model):
 
 class Database(models.Model):
     schema_name = models.CharField(max_length=40,null=True,blank=True,verbose_name="数据库schema名称")
-    schema_url = models.CharField(max_length=40,null=True,blank=True,verbose_name="数据库url")
+    schema_url = models.CharField(max_length=255,null=True,blank=True,verbose_name="数据库url")
     schema_username = models.CharField(max_length=40,null=True,blank=True,verbose_name="数据库用户名")
     schema_password = models.CharField(max_length=40,null=True,blank=True,verbose_name="数据库密码")
     schema_env = models.CharField(max_length=40,null=True,blank=True,verbose_name="数据库所属环境")
@@ -22,7 +22,7 @@ class Database(models.Model):
         verbose_name_plural = verbose_name
 
 class SqlFile(models.Model):
-    sql_name = models.CharField(max_length=40,null=True,blank=True,verbose_name="SQL脚本名称",unique=True)
+    sql_name = models.CharField(max_length=255,null=True,blank=True,verbose_name="SQL脚本名称",unique=True)
     sql_version = models.CharField(max_length=40,null=True,blank=True,verbose_name="SQL脚本版本")
     sql_content = models.TextField(null=True,blank=True,verbose_name="SQL脚本内容")
     database = models.ForeignKey(Database,null=True,blank=True,db_constraint=False,verbose_name="所属schema")
