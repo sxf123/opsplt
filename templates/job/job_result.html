@@ -97,7 +97,7 @@
                                 $("#" + host.replace(/\./g,'')).attr("disabled",false);
                                 clearInterval(timer_id);
                             }else{
-                                $("#" + hsot.replace(/\./g,'') + "_status").text("FAILURE");
+                                $("#" + host.replace(/\./g,'') + "_status").text("FAILURE");
                                 $("#" + host.replace(/\./g,'')).attr("disabled",false);
                                 clearInterval(timer_id);
                             }
@@ -141,6 +141,15 @@
                                 $("#execute_res").html(dom);
                                 clearInterval(timer_id);
                                 $("#prog").css("width","100%");
+                                $("#prog").attr("class","progress-bar progress-bar-success");
+                            }else{
+                                var dom = $("<div>");
+                                dom.append("Failure...");
+                                dom.append("</div>");
+                                $("#execute_res").html(dom);
+                                clearInterval(timer_id);
+                                $("#prog").css("width","100%");
+                                $("#prog").attr("class","progress-bar progress-bar-danger");
                             }
                         },
                         error: function (err) {
