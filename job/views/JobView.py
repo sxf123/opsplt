@@ -36,7 +36,7 @@ class JobAddView(View):
         elif job_type == "shell":
             job_name = job_name + ".sh"
         elif job_type == "playbook":
-            job_name = job_name + ".yaml"
+            job_name = job_name
         job = Job(
             job_name=job_name,
             job_desc=job_desc,
