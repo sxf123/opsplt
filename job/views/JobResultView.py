@@ -33,14 +33,13 @@ class JobExecuteView(View):
     def post(self, request, *args, **kwargs):
         host_list = request.POST.get('host').split(',')
         playbook_content = request.POST.get('playbook')
-        extra_vars = json.loads(request.POST.get('extra_vars')) if request.POST.get('extra_vars') != '' else None
+        extra_vars = json.loads(request.POST.get('extra_vars')) if request.POST.get('extra_vars') != '' else {}
         job_name = request.POST.get('job_name')
         playbook_name = job_name + ".yml"
         playbook = '/opt/ansible-api/{}'.format(playbook_name)
         with open(playbook, 'w') as f:
             f.write(playbook_content)
             f.close()
-
         res = run_playbook.delay(host_list, playbook, extra_vars)
         job_state = JobState(
             jobid=res.id,
