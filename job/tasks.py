@@ -7,9 +7,9 @@ import logging
 logger = logging.getLogger("default")
 
 @shared_task
-def run_playbook(host_list,playbook):
+def run_playbook(host_list,playbook,extra_vars=None):
     current_process()._config = {'semprefix': '/mp'}
-    playbook_obj = PlayBook(host_list,run_playbook.request.id)
+    playbook_obj = PlayBook(host_list,run_playbook.request.id,extra_vars=extra_vars)
     res = playbook_obj.runPlayBook(playbook)
     return res
 

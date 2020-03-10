@@ -25,6 +25,12 @@
                         <div id="code" style="min-height: 400px; overflow-y: auto;overflow-x: hidden">{{ job.job_content }}</div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="extra_vars">参数</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="extra_vars"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="box-footer">
                 <div class="form-group">
@@ -94,6 +100,7 @@
                 console.log(host);
                 var playbook = editor.getValue();
                 var job_name = '{{ job.job_name }}';
+                var extra_vars = $('#extra_vars').val();
                 if(valJobExecuteForm()){
                     $.ajax({
                         url: "{% url 'ansible_playbook' %}",
@@ -101,7 +108,8 @@
                         data: {
                             'host': host,
                             'playbook': playbook,
-                            'job_name': job_name
+                            'job_name': job_name,
+                            'extra_vars': extra_vars
                         },
                         success: function (res) {
                             var jobid = res.job_id;

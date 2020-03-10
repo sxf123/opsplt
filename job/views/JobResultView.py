@@ -10,6 +10,8 @@ from cmdb.models.Host import Host
 from job.models import JobResult
 from job.models import JobState
 from job.models import Job
+import json
+import os
 import time
 
 
@@ -31,13 +33,15 @@ class JobExecuteView(View):
     def post(self, request, *args, **kwargs):
         host_list = request.POST.get('host').split(',')
         playbook_content = request.POST.get('playbook')
+        extra_vars = json.loads(request.POST.get('extra_vars')) if request.POST.get('extra_vars') != '' else None
         job_name = request.POST.get('job_name')
         playbook_name = job_name + ".yml"
         playbook = '/opt/ansible-api/{}'.format(playbook_name)
         with open(playbook, 'w') as f:
             f.write(playbook_content)
             f.close()
-        res = run_playbook.delay(host_list, playbook)
+
+        res = run_playbook.delay(host_list, playbook, extra_vars)
         job_state = JobState(
             jobid=res.id,
             jobname=job_name,
@@ -79,10 +83,14 @@ class JobResultView(View):
             else:
                 job_state.state = 'SUCCESS'
             job_state.save()
+            if os.path.exists(os.path.join("/opt/ansible-api",job_state.jobname)):
+                os.remove(os.path.join("/opt/ansible-api",job_state.jobname))
             return JsonResponse({'status': 'success', 'result': list(result)})
         elif status == "FAILURE":
             job_state = JobState.objects.get(jobid=jobid)
             job_state.stop_time = time.strftime('%Y-%m-%d %H:%M:%S')
             job_state.state = "FAILURE"
             job_state.save()
+            if os.path.exists(os.path.join("/opt/ansible-api",job_state.jobname)):
+                os.remove(os.path.join("/opt/ansible-api",job_state.jobname))
             return JsonResponse({'status': 'failure'})
