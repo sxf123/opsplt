@@ -7,6 +7,7 @@ class Job(models.Model):
     job_desc = models.CharField(max_length=255,null=False,blank=False,verbose_name="作业描述")
     job_type = models.CharField(max_length=255,null=False,blank=False,verbose_name="作业类型")
     job_content = models.TextField(null=False,blank=False,verbose_name="作业内容")
+    extra_vars = models.TextField(null=True,blank=True,verbose_name="参数")
 
     def __str__(self):
         return self.job_name

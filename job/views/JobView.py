@@ -26,10 +26,11 @@ class JobAddView(View):
     @method_decorator(login_required)
     @method_decorator(permission_required('job.add_job',raise_exception=True))
     def post(self,request,*args,**kwargs):
-        job_name = request.POST.get('job_name');
-        job_desc = request.POST.get('job_desc');
-        job_type = request.POST.get('job_type');
-        job_content = request.POST.get('job_content');
+        job_name = request.POST.get('job_name')
+        job_desc = request.POST.get('job_desc')
+        job_type = request.POST.get('job_type')
+        job_content = request.POST.get('job_content')
+        extra_vars = request.POST.get('extra_vars')
         if job_type == 'python':
             job_name = job_name + ".py"
         elif job_type == "shell":
@@ -40,7 +41,8 @@ class JobAddView(View):
             job_name=job_name,
             job_desc=job_desc,
             job_type=job_type,
-            job_content=job_content
+            job_content=job_content,
+            extra_vars=extra_vars
         )
         job.save()
         return JsonResponse({'message': 'add job {} success'.format(job_name)})
@@ -61,9 +63,11 @@ class JobUpdateView(View):
     @method_decorator(permission_required('job.update_job', raise_exception=True))
     def post(self, request, *args, **kwargs):
         job_content = request.POST.get('job_content')
+        extra_vars = request.POST.get('extra_vars')
         id = kwargs.get('id')
         job = Job.objects.get(pk=id)
         job.job_content = job_content
+        job.extra_vars = extra_vars
         job.save()
         return JsonResponse({"message": "update {} success".format(job.job_name)})
 

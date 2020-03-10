@@ -51,6 +51,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="extra_vars">参数</label>
+                    <div class="col-sm-6">
+                        <textarea id="extra_vars" class="form-control"></textarea>
+                    </div>
+                </div>
             </div>
             <div class="box-footer">
                 <div class="form-group">
@@ -202,6 +208,7 @@
                 var job_name = $('#job_name').val();
                 var job_type = onclick;
                 var job_content = editor.getValue();
+                var extra_vars = $('#extra_vars').val();
                 if(validJobSubmit()){
                     $.ajax({
                         url: "{% url 'job_content' %}",
@@ -210,7 +217,8 @@
                             'job_name': job_name,
                             'job_desc': job_desc,
                             'job_type': job_type,
-                            'job_content': job_content
+                            'job_content': job_content,
+                            'extra_vars': extra_vars
                         },
                         success: function (res) {
                             console.log(res);
