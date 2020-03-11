@@ -5,7 +5,8 @@ class DeploymentPermissions(models.Model):
         permissions = (
             ("scan_deployment","Can scan 发布管理"),
             ("scan_project","Can scan 项目管理"),
-            ("scan_ticket","Can scan 工单管理")
+            ("scan_ticket","Can scan 工单管理"),
+            ("modify_ticket","Can modify 工单管理")
         )
         db_table = "deploy_permission"
 
@@ -38,3 +39,15 @@ class Ticket(models.Model):
         verbose_name = "工单"
         verbose_name_plural = verbose_name
         db_table = "deploy_ticket"
+
+class ImageVersion(models.Model):
+    tag = models.CharField(max_length=255,null=True,blank=True,verbose_name="镜像标签")
+    project = models.ForeignKey(Project,null=True,blank=True,verbose_name="所属镜像")
+    ticket = models.ForeignKey(Ticket,null=True,blank=True,verbose_name="所属工单")
+
+    def __str__(self):
+        return "{}:{}".format(self.project.project_name,self.tag)
+    class Meta:
+        verbose_name = "项目版本"
+        verbose_name_plural = verbose_name
+        db_table = "image_version"

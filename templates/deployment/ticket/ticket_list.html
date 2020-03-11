@@ -48,18 +48,13 @@
                             <td>{{ ticket.deploy_title }}</td>
                             <td>{{ ticket.project }}</td>
                             <td>{{ ticket.create_time|date:"Y-m-d" }}</td>
-                            <td>
-                                {% if perms.deployment.chang_ticket %}
-                                <a href="">
-                                    <button type="button" class="btn btn-primary btn-sm">更新</button>
-                                </a>
-                                {% endif %}
-                                {% if perms.deployment.delete_ticket %}
-                                <a href="">
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#checkModal" onclick="modify_button({{ ticket.id }})">删除</button>
-                                </a>
-                                {% endif %}
-                            </td>
+                            {% if perms.deployment.modify_ticket %}
+                                <td>
+                                    <a href="">
+                                        <button type="button" class="btn btn-link btn-sm" onclick="modify_success('{{ ticket.ticket_no }}')" {% ifequal ticket.status 1 %}disabled="disabled"{% endifequal %}>发布成功</button>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -253,5 +248,23 @@
                 }
             });
         });
+        function modify_success(ticket_no) {
+            $.ajaxSetup({
+               data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+            });
+            $.ajax({
+                url: '/deployment/ticket/success/',
+                type: 'post',
+                data: {
+                    'ticket_no': ticket_no
+                },
+                success: function (res) {
+                    console.log(res);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
     </script>
 {% endblock %}

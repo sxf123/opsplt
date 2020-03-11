@@ -61,6 +61,14 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        <tr>
+                            <td width="30%">镜像列表</td>
+                            <td>
+                                {% for image in image_list %}
+                                    <b>harbor.hzyudaokeji.com/yudao-prod/{{ image.project.project_name }}:{{ image.tag }}</b><br/>
+                                {% endfor %}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

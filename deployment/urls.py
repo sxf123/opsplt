@@ -8,6 +8,7 @@ from deployment.views.TicketView import TicketListView
 from deployment.views.TicketView import TicketAddView
 from deployment.views.TicketView import TicketDetailView
 from deployment.views.TicketView import TicketSqlAndConfigView
+from deployment.views.TicketView import TicketSuccess
 
 urlpatterns = [
     url(r'^project/list/$',ProjectListView.as_view(),name='project_list'),
@@ -18,5 +19,6 @@ urlpatterns = [
     url(r'^ticket/list/$',TicketListView.as_view(),name="ticket_list"),
     url(r'^ticket/add/$',TicketAddView.as_view(),name='ticket_add'),
     url(r'^ticket/detail/$',TicketDetailView.as_view(),name='ticket_detail'),
-    url(r'^ticket/sql_and_config/$',TicketSqlAndConfigView.as_view(),name='ticket_sql_config')
+    url(r'^ticket/sql_and_config/$',TicketSqlAndConfigView.as_view(),name='ticket_sql_config'),
+    url(r'^ticket/success/$',TicketSuccess.as_view(),name="ticket_success")
 ]
