@@ -62,7 +62,6 @@ class TicketSqlAndConfigView(View):
     def __init__(self):
         self.context = {}
     @method_decorator(login_required)
-    @method_decorator(permission_required('deployment.modify_ticket',raise_exception=True))
     def get(self,request,*args,**kwargs):
         type = request.GET.get("type")
         ticket_no = request.GET.get("ticket_no")

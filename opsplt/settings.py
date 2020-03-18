@@ -205,7 +205,7 @@ LOGGING = {
     }
 }
 
-FLYWAY_BASEDIR = ""
-HARBOR_URL = ""
+FLYWAY_BASEDIR = "/opt/flyway"
+HARBOR_URL = "https://harbor.hzyudaokeji.com"
 HARBOR_USERNAME = "admin"
-HARBOR_PASSWORD = ""
+HARBOR_PASSWORD = "UKMYy9KPRrvoseUW"
