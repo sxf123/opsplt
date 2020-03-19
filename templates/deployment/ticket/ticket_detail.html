@@ -2,75 +2,77 @@
 {% load split_res %}
 {% block main_body %}
     <div class="col-md-12">
-        <div class="box box-widget">
-            <div class="box-header with-border">
-                <div class="box-title">
-                    <p>发布工单</p>
+        <div class="col-row">
+            <div class="box box-widget">
+                <div class="box-header with-border">
+                    <div class="box-title">
+                        <p>发布工单</p>
+                    </div>
+                    <div class="box-tools">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="box-tools">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove">
-                        <i class="fa fa-times"></i>
-                    </button>
+                <div class="box-body with-border" style="height: 370px;overflow: auto;">
+                    <table class="table table-no-bordered" style="border-top: 0px solid transparent">
+                        <tbody>
+                            <tr>
+                                <td width="30%" style="border-top: 0px solid;">工单编号</td>
+                                <td style="border-top: 0px solid;"><b>{{ ticket.ticket_no }}</b></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">发布内容</td>
+                                <td><b>{{ ticket.deploy_title }}</b></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">更新服务</td>
+                                {% with ticket.project|split_project as project_list %}
+                                <td>
+                                    {% for service in project_list %}
+                                        <b>{{ service }}</b><br/>
+                                    {% endfor %}
+                                </td>
+                                {% endwith %}
+                            </tr>
+                            <tr>
+                                <td width="30%">发布时间</td>
+                                <td><b>{{ ticket.create_time|date:"Y-m-d" }}</b></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">sql脚本</td>
+                                <td>
+                                    {% if ticket.sql_content == "" %}
+                                        <b>无SQL脚本</b>
+                                    {% else %}
+                                        <b>工单{{ ticket.ticket_no }}-<a href="{% url 'ticket_sql_config' %}?type=sql&ticket_no={{ ticket.ticket_no }}">SQL脚本</a></b>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">配置内容</td>
+                                <td>
+                                    {% if ticket.config_content == "" %}
+                                        <b>无配置项</b>
+                                    {% else %}
+                                        <b>工单{{ ticket.ticket_no }}-<a href="{% url 'ticket_sql_config' %}?type=config&ticket_no={{ ticket.ticket_no }}">配置项</a></b>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">镜像列表</td>
+                                <td>
+                                    {% for image in image_list %}
+                                        <b>harbor.hzyudaokeji.com/yudao-prod/{{ image.project.project_name }}:{{ image.tag }}</b><br/>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="box-body with-border">
-                <table class="table table-no-bordered" style="border-top: 0px solid transparent">
-                    <tbody>
-                        <tr>
-                            <td width="30%" style="border-top: 0px solid;">工单编号</td>
-                            <td style="border-top: 0px solid;"><b>{{ ticket.ticket_no }}</b></td>
-                        </tr>
-                        <tr>
-                            <td width="30%">发布内容</td>
-                            <td><b>{{ ticket.deploy_title }}</b></td>
-                        </tr>
-                        <tr>
-                            <td width="30%">更新服务</td>
-                            {% with ticket.project|split_project as project_list %}
-                            <td>
-                                {% for service in project_list %}
-                                    <b>{{ service }}</b><br/>
-                                {% endfor %}
-                            </td>
-                            {% endwith %}
-                        </tr>
-                        <tr>
-                            <td width="30%">发布时间</td>
-                            <td><b>{{ ticket.create_time|date:"Y-m-d" }}</b></td>
-                        </tr>
-                        <tr>
-                            <td width="30%">sql脚本</td>
-                            <td>
-                                {% if ticket.sql_content == "" %}
-                                    <b>无SQL脚本</b>
-                                {% else %}
-                                    <b>工单{{ ticket.ticket_no }}-<a href="{% url 'ticket_sql_config' %}?type=sql&ticket_no={{ ticket.ticket_no }}">SQL脚本</a></b>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="30%">配置内容</td>
-                            <td>
-                                {% if ticket.config_content == "" %}
-                                    <b>无配置项</b>
-                                {% else %}
-                                    <b>工单{{ ticket.ticket_no }}-<a href="{% url 'ticket_sql_config' %}?type=config&ticket_no={{ ticket.ticket_no }}">配置项</a></b>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="30%">镜像列表</td>
-                            <td>
-                                {% for image in image_list %}
-                                    <b>harbor.hzyudaokeji.com/yudao-prod/{{ image.project.project_name }}:{{ image.tag }}</b><br/>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

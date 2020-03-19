@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from deployment.models import Ticket
 from common.harbor_api import HarBorApi
 from opsplt.settings import HARBOR_URL,HARBOR_USERNAME,HARBOR_PASSWORD
+from django.db.models import Q
 
 class TicketListView(View):
     def __init__(self):
@@ -88,9 +89,17 @@ class TicketSuccess(View):
         prefix = project_list[0].split("/")[0]
         project_name_list = [p.split("/")[1] for p in project_list]
         projects = Project.objects.filter(project_name__in=project_name_list)
+        image_version_list = []
         for p in projects:
-            tag = harbor.get_tag("{}/{}".format(prefix,p))
-            ImageVersion.objects.create(tag=tag,project=p,ticket=ticket)
+            try:
+                image_version = ImageVersion.objects.get(Q(project=p) & Q(ticket=ticket))
+            except ImageVersion.DoesNotExist:
+                return JsonResponse({"message":"image version is not exist"})
+            image_version_list.append(image_version)
+        for image_version in image_version_list:
+            tag = harbor.get_tag("{}/{}".format(prefix,image_version.project))
+            image_version.tag = tag
+            image_version.save()
         ticket.status = 1
         ticket.save()
         return JsonResponse({"status":"success"})
