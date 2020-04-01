@@ -5,6 +5,8 @@ from cmdb.models.Host import Host
 from cmdbapi.serializers.HostSerializer import HostSerializer
 from cmdbapi.service.HostService import HostService
 from cmdbapi.exception import AuthException
+from cmdbapi.exception import NotFoundException
+from cmdbapi.exception import SysException
 from rest_framework.views import APIView
 from cmdbapi.authentication import TokenBaseAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -17,7 +19,9 @@ class HostDetailView(BaseView):
             host_serializer = HostSerializer(host)
             response = BaseResponse.success("",host_serializer.data)
         except Host.DoesNotExist:
-            response = BaseResponse.error("主机不存在",None)
+            raise NotFoundException("主机不存在")
+        except Exception:
+            raise SysException
         return response
 
 class HostUpdateView(BaseView):

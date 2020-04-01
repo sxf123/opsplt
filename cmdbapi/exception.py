@@ -16,3 +16,11 @@ class BaseException(APIException):
 class AuthException(BaseException):
     default_code = 403
     default_detail = "认证失败"
+
+class NotFoundException(BaseException):
+    default_code = 404
+    default_detail = "对象不存在"
+
+class SysException(BaseException):
+    default_code = 500
+    default_detail = "系统错误"
