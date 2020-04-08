@@ -16,8 +16,8 @@ import string
 import random
 
 djcelery.setup_loader()
-BROKER_URL = 'amqp://opsplt:opsplt@172.16.141.210:5672/opsplt'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
+BROKER_URL = 'amqp://opsplt:opsplt@192.168.180.94:5672/opsplt'
+CELERY_RESULT_BACKEND = 'redis://192.168.180.94:6379/1'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
@@ -34,7 +34,7 @@ SECRET_KEY = 'm-pga%wvv$*zgwp+$xhq@i$$n^4eqa1uwai8ogr3#5h262^8x-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['opsplt.hzyudaokeji.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -103,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'opsplt',
-        'USER': 'opsplt',
-        'PASSWORD': 'opsplt@123',
+        'USER': 'root',
+        'PASSWORD': 'moresec@2020',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -206,6 +206,6 @@ LOGGING = {
 }
 
 FLYWAY_BASEDIR = "/opt/flyway"
-HARBOR_URL = "https://harbor.hzyudaokeji.com"
-HARBOR_USERNAME = "admin"
-HARBOR_PASSWORD = "UKMYy9KPRrvoseUW"
+HARBOR_URL = ""
+HARBOR_USERNAME = ""
+HARBOR_PASSWORD = ""
