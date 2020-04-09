@@ -60,13 +60,13 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="instance_id">实例ID</label>
-                    <div class="col-sm-8">
-                        {{ host_add_form.instance_id }}
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
+{#                <div class="form-group">#}
+{#                    <label class="col-sm-2 control-label" for="instance_id">实例ID</label>#}
+{#                    <div class="col-sm-8">#}
+{#                        {{ host_add_form.instance_id }}#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="hr-line-dashed"></div>#}
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="node">节点</label>
                     <div class="col-sm-8">
@@ -117,16 +117,13 @@
                         required: true
                     },
                     cpu_nums: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     memory: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     disk: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     node: {
                         required: true

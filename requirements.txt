@@ -10,3 +10,6 @@ ansible==2.7.9
 requests==2.21.0
 pycryptodome==3.8.1
 python-consul
+djangorestframework-jwt
+django-mptt==0.8.7
+djangorestframework-recursive

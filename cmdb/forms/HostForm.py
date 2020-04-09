@@ -14,17 +14,14 @@ class HostAddForm(forms.Form):
     hosttype = forms.CharField(
         widget=Select(attrs={'id':'hsottype','class':'form-control'},choices=(('','----------'),('virtual','虚拟机'),('hyper','物理机')))
     )
-    cpu_nums = forms.IntegerField(
+    cpu_nums = forms.CharField(
         widget=TextInput(attrs={'id':'cpu_nums','class':'form-control','placeholder':'请输入CPU核数'})
     )
-    memory = forms.IntegerField(
+    memory = forms.CharField(
         widget=TextInput(attrs={'id':'memory','class':'form-control','placeholder':'请输入内存'})
     )
-    disk = forms.IntegerField(
+    disk = forms.CharField(
         widget=TextInput(attrs={'id':'disk','class':'form-control','placeholder':'请输入磁盘'})
-    )
-    instance_id = forms.CharField(
-        widget=TextInput(attrs={'id':'instance_id','class':'form-control','placeholder':'请输入实例ID'})
     )
 
 class HostUpdateForm(HostAddForm):

@@ -119,9 +119,14 @@
                             if(res.status == 'pending'){
                                 var dom = $("<div>");
                                 for(var i=0;i<res.result.length;i++){
+                                    var result = $.parseJSON(res.result[i].result);
                                     var domli = $("<p>" + res.result[i].host + "</p>" +
                                         "<p>" + res.result[i].task + "</p>" +
-                                        "<p>" + res.result[i].result + "</p>" +
+                                        "<p>rc: " + result.rc + "</p>" +
+                                        "<p>changed: " + result.changed + "</p>" +
+                                        "<p>msg: " + result.msg + "</p>" +
+                                        "<p>cmd: " + result.cmd + "</p>" +
+                                        "<p>stdout: " + result.stdout + "</p>" +
                                         "<p>" + res.result[i].state + "</p>");
                                     dom.append(domli);
                                 }
@@ -131,9 +136,14 @@
                             }else if(res.status == 'success'){
                                 var dom = $("<div>");
                                 for(var i=0;i<res.result.length;i++){
+                                    var result = $.parseJSON(res.result[i].result);
                                     var domli = $("<p>" + res.result[i].host + "</p>" +
                                         "<p>" + res.result[i].task + "</p>" +
-                                        "<p>" + res.result[i].result + "</p>" +
+                                        "<p>rc: " + result.rc + "</p>" +
+                                        "<p>changed: " + result.changed + "</p>" +
+                                        "<p>msg: " + result.msg + "</p>" +
+                                        "<p>cmd: " + result.cmd + "</p>" +
+                                        "<p>stdout: " + result.stdout + "</p>" +
                                         "<p>" + res.result[i].state + "</p>");
                                     dom.append(domli);
                                 }
@@ -173,9 +183,14 @@
                 success: function (res) {
                     var dom = $("<div>");
                     for(var i=0;i<res.result.length;i++){
+                        var result = $.parseJSON(res.result[i].result);
                         var domli = $("<p>" + res.result[i].host + "</p>" +
                             "<p>" + res.result[i].task + "</p>" +
-                            "<p>" + res.result[i].result + "</p>" +
+                            "<p>rc: " + result.rc + "</p>" +
+                            "<p>changed: " + result.changed + "</p>" +
+                            "<p>msg: " + result.msg + "</p>" +
+                            "<p>cmd: " + result.cmd + "</p>" +
+                            "<p>stdout: " + result.stdout + "</p>" +
                             "<p>" + res.result[i].state + "</p>");
                         dom.append(domli);
                         $("#execute_res").html(dom);

@@ -16,7 +16,7 @@ import string
 import random
 
 djcelery.setup_loader()
-BROKER_URL = 'amqp://opsplt:opsplt@192.168.180.94:5672/opsplt'
+BROKER_URL = 'amqp://admin:admin@192.168.180.94:5672/vhost'
 CELERY_RESULT_BACKEND = 'redis://192.168.180.94:6379/1'
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'

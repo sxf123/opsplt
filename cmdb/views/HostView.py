@@ -36,7 +36,7 @@ class HostAdd(View):
     def get(self,request,*args,**kwargs):
         host_add_form = HostAddForm()
         node_list = Node.objects.filter(level=3)
-        self.context = {'host_add_form':host_add_form,'node_list':[{'id':n.node_id,'text':'/'.join(get_pid_list(n))} for n in node_list]}
+        self.context = {'host_add_form':host_add_form,'node_list':[{'id':n.id,'text':'/'.join(get_pid_list(n))} for n in node_list]}
         return render(request,'cmdb/host/host_add.html',self.context)
     @method_decorator(login_required)
     @method_decorator(permission_required('cmdb.add_host',raise_exception=True))
@@ -50,7 +50,6 @@ class HostAdd(View):
             cpu_nums = host_add_form.cleaned_data.get('cpu_nums')
             memory = host_add_form.cleaned_data.get('memory')
             disk = host_add_form.cleaned_data.get('disk')
-            instance_id = host_add_form.cleaned_data.get('instance_id')
             node = request.POST.getlist('node')
             host = Host(
                 hostname = hostname,
@@ -59,12 +58,11 @@ class HostAdd(View):
                 hosttype = hosttype,
                 cpu_nums = cpu_nums,
                 memory = memory,
-                disk = disk,
-                instance_id = instance_id
+                disk = disk
             )
             host.save()
             for n in node:
-                host.node.add(Node.objects.get(node_id=n))
+                host.node.add(Node.objects.get(pk=n))
             return HttpResponseRedirect(reverse('host_list'))
         else:
             self.context = {'host_add_form': host_add_form,'errors': host_add_form.errors}
@@ -78,10 +76,10 @@ class HostUpdate(View):
     def get(self,request,*args,**kwargs):
         id = kwargs.get('id')
         host = Host.objects.get(pk=id)
-        host_update_form = HostUpdateForm({'hostname':host.hostname,'hostname_hidden':host.hostname,'ipaddress':host.ipaddress,'hosttype':host.hosttype,'cpu_nums':host.cpu_nums,'memory':host.memory,'disk':host.disk,'instance_id':host.instance_id})
+        host_update_form = HostUpdateForm({'hostname':host.hostname,'hostname_hidden':host.hostname,'ipaddress':host.ipaddress,'hosttype':host.hosttype,'cpu_nums':host.cpu_nums,'memory':host.memory,'disk':host.disk})
         nodes = Node.objects.filter(level=3)
-        node_list = [{'id': n.node_id, 'text': '/'.join(get_pid_list(n))} for n in nodes]
-        self.context = {'host_update_form': host_update_form,'node_list':node_list,'node_id_list':[n.node_id for n in host.node.all()]}
+        node_list = [{'id': n.id, 'text': '/'.join(get_pid_list(n))} for n in nodes]
+        self.context = {'host_update_form': host_update_form,'node_list':node_list,'node_id_list':[n.id for n in host.node.all()]}
         return render(request,'cmdb/host/host_update.html',self.context)
     @method_decorator(login_required)
     @method_decorator(permission_required('cmdb.change_host',raise_exception=True))
@@ -97,14 +95,13 @@ class HostUpdate(View):
             host.cpu_nums = host_update_form.cleaned_data.get('cpu_nums')
             host.memory = host_update_form.cleaned_data.get('memory')
             host.disk = host_update_form.cleaned_data.get('disk')
-            host.instance_id = host_update_form.cleaned_data.get('instance_id')
             node_list = request.POST.getlist('node')
             host.save()
             nodes = host.node.all()
             for n in nodes:
                 host.node.remove(n)
             for n in node_list:
-                host.node.add(Node.objects.get(node_id=n))
+                host.node.add(Node.objects.get(pk=n))
             return HttpResponseRedirect(reverse('host_list'))
         else:
             self.context = {'host_update_form': host_update_form,'errors': host_update_form.errors}
@@ -136,17 +133,34 @@ def host_exist(request):
     else:
         return JsonResponse(True,safe=False)
 
+# def get_pid_list(node):
+#     node_list = []
+#     if node.level == 0:
+#         return node_list.append(node.name)
+#     else:
+#         node_list.append(node.name)
+#         for i in range(node.level):
+#             node_parent = Node.objects.get(node_id=node.node_pid)
+#             node_list.append(node_parent.name)
+#             node = node_parent
+#     return reversed(node_list)
+# def get_pid_list(node):
+#     if node.parent == None:
+#         yield node.name
+#     else:
+#         for i in range(node.level+1):
+#             yield node.name
+#             node = node.parent
 def get_pid_list(node):
     node_list = []
-    if node.level == 0:
-        return node_list.append(node.name)
-    else:
+    if node.parent == None:
         node_list.append(node.name)
-        for i in range(node.level):
-            node_parent = Node.objects.get(node_id=node.node_pid)
-            node_list.append(node_parent.name)
-            node = node_parent
+    else:
+        for i in range(node.level+1):
+            node_list.append(node.name)
+            node = node.parent
     return reversed(node_list)
+
 
 @require_http_methods(["GET"])
 @login_required

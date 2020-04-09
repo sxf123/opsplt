@@ -82,9 +82,14 @@
                 success: function (res) {
                     var dom = $('<div>');
                     for(var i=0;i<res.jobresult.length;i++){
+                        var result = $.parseJSON(res.result[i].result);
                         var domli = $('<p>' + res.jobresult[i].host + '</p>' +
                             '<p>' + res.jobresult[i].task + '</p>' +
-                            '<p>' + res.jobresult[i].result + '</p>' +
+                            "<p>rc: " + result.rc + "</p>" +
+                            "<p>changed: " + result.changed + "</p>" +
+                            "<p>msg: " + result.msg + "</p>" +
+                            "<p>cmd: " + result.cmd + "</p>" +
+                            "<p>stdout: " + result.stdout + "</p>" +
                             '<p>' + res.jobresult[i].state + '</p>');
                         dom.append(domli);
                     }

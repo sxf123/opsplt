@@ -60,13 +60,13 @@
                         {{ host_update_form.disk }}
                     </div>
                 </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="instance_id">实例ID</label>
-                    <div class="col-sm-8">
-                        {{ host_update_form.instance_id }}
-                    </div>
-                </div>
+{#                <div class="hr-line-dashed"></div>#}
+{#                <div class="form-group">#}
+{#                    <label class="col-sm-2 control-label" for="instance_id">实例ID</label>#}
+{#                    <div class="col-sm-8">#}
+{#                        {{ host_update_form.instance_id }}#}
+{#                    </div>#}
+{#                </div>#}
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="node">节点</label>
@@ -112,16 +112,13 @@
                         required: true
                     },
                     cpu_nums: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     memory: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     disk: {
-                        required: true,
-                        digits: true
+                        required: true
                     },
                     node: {
                         required: true
@@ -141,16 +138,13 @@
                         required: '请选择主机类型'
                     },
                     cpu_numps: {
-                        required: '请输入CPU核数',
-                        digits: '必须为整数'
+                        required: '请输入CPU核数'
                     },
                     memory: {
-                        required: '请输入内存',
-                        digits: '必须为整数'
+                        required: '请输入内存'
                     },
                     disk: {
-                        required: '请输入磁盘',
-                        digits: '必须为整数'
+                        required: '请输入磁盘'
                     },
                     node: {
                         required: '请选择节点'
