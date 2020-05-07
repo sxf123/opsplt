@@ -59,7 +59,7 @@
                             {% for res in job_result %}
                                 <p>{{ res.host }}</p>
                                 <p>{{ res.task }}</p>
-                                <p>{{ res.result }}</p>
+                                <p id="{{ res.id }}">{{ res.result }}</p>
                                 <p>{{ res.state }}</p>
                             {% endfor %}
                         </div>
@@ -69,6 +69,22 @@
         </div>
     </div>
     <script type="application/javascript">
+        $(function () {
+            var tasks = {{ tasks|safe }};
+            for(var i=0;i<tasks.length;i++){
+                console.log(tasks[i]);
+                makeResult(tasks[i]);
+            }
+        });
+        function makeResult(task) {
+            var result = $.parseJSON($("#" + task).text());
+            var domli = $("<p>rc: " + result.rc + "</p>" +
+                "<p>changed: " + result.changed + "</p>" +
+                "<p>msg: " + result.msg + "</p>" +
+                "<p>cmd: " + result.cmd + "</p>" +
+                "<p>stdout: " + result.stdout + "</p>");
+            $("#" + task).html(domli);
+        }
         function getResult(host,jobid) {
             $.ajaxSetup({
                 data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
@@ -82,15 +98,15 @@
                 success: function (res) {
                     var dom = $('<div>');
                     for(var i=0;i<res.jobresult.length;i++){
-                        var result = $.parseJSON(res.result[i].result);
+                        var result = $.parseJSON(res.jobresult[i].result);
                         var domli = $('<p>' + res.jobresult[i].host + '</p>' +
-                            '<p>' + res.jobresult[i].task + '</p>' +
+                            "<p>" + res.jobresult[i].task + "</p>" +
                             "<p>rc: " + result.rc + "</p>" +
                             "<p>changed: " + result.changed + "</p>" +
                             "<p>msg: " + result.msg + "</p>" +
                             "<p>cmd: " + result.cmd + "</p>" +
                             "<p>stdout: " + result.stdout + "</p>" +
-                            '<p>' + res.jobresult[i].state + '</p>');
+                            "<p>" + res.jobresult[i].state + "</p>");
                         dom.append(domli);
                     }
                     dom.append('</div>');

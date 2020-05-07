@@ -33,7 +33,7 @@ class JobHistoryResultView(View):
             else:
                 host['state'] = 'SUCCESS'
         job_result = JobResult.objects.filter(jobid=jobid).filter(host=host_list[0].get('host'))
-        context = {'job_result': job_result, 'host_list': host_list, 'jobid': jobid}
+        context = {'job_result': job_result, 'host_list': host_list, 'jobid': jobid, "tasks": [jr.id for jr in job_result]}
         return render(request, 'job/job_history_result.html', context)
 
     @method_decorator(login_required)
